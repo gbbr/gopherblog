@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+const (
+	SQL_POST_BYID   = "SELECT title, body, idUser, date FROM posts WHERE idPost=?"
+	SQL_POST_BYSLUG = "SELECT title, body, idUser, date FROM posts WHERE slug=?"
+)
+
 type Post struct {
 	Id                int
 	Slug, Title, Body string
@@ -21,9 +26,9 @@ func (p *Post) Fetch() error {
 
 	switch {
 	case p.Id != 0:
-		data = p.byId(p.Id)
+		data = db.QueryRow(SQL_POST_BYID, p.Id)
 	case p.Slug != "":
-		data = p.bySlug(p.Slug)
+		data = db.QueryRow(SQL_POST_BYSLUG, p.Slug)
 	default:
 		return errors.New("Must provide ID or slug for fetching")
 	}
@@ -34,16 +39,6 @@ func (p *Post) Fetch() error {
 	}
 
 	return nil
-}
-
-// Query DB by ID
-func (p *Post) byId(id int) *sql.Row {
-	return db.QueryRow("SELECT title, body, idUser, date FROM posts WHERE idPost=?", id)
-}
-
-// Query DB by slug
-func (p *Post) bySlug(slug string) *sql.Row {
-	return db.QueryRow("SELECT title, body, idUser, date FROM posts WHERE slug=?", slug)
 }
 
 // Scans a fetched row and updates the structure
