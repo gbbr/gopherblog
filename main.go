@@ -20,7 +20,9 @@ func main() {
 	}
 
 	models.ConnectDb(conf.DbString)
+
 	http.HandleFunc("/post/", views.ViewPost)
+	http.HandleFunc("/", views.ViewHome)
 
 	err := http.ListenAndServe(conf.Host, nil)
 	if err != nil {

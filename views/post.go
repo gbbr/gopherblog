@@ -19,3 +19,16 @@ func ViewPost(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "%+v", post)
 }
+
+// Displays home page
+func ViewHome(w http.ResponseWriter, r *http.Request) {
+	posts, err := models.Posts(200)
+
+	if err != nil {
+		fmt.Fprint(w, "404")
+	}
+
+	for _, post := range posts {
+		fmt.Fprintf(w, "%+v\n\n", post)
+	}
+}

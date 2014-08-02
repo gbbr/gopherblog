@@ -14,21 +14,35 @@ type Post struct {
 	Date              time.Time
 }
 
-const (
-	SQL_POST_BY_ID = `
-		SELECT title, body, date, idUser, users.name, users.email 
-		FROM posts 
-		INNER JOIN users USING(idUser)
-		WHERE idPost=?`
-	SQL_POST_BY_SLUG = `
-		SELECT title, body, date, idUser, users.name, users.email 
-		FROM posts 
-		INNER JOIN users USING(idUser)
-		WHERE slug=?`
-)
+// Fetches number of posts from the database ordered by date
+func Posts(limit int) (posts []Post, err error) {
+	rows, err := db.Query(SQL_ALL_POSTS, limit)
+	defer rows.Close()
+	if err != nil {
+		return
+	}
 
-// Fetches data from database by ID or slug (whichever one is available)
-// and updates structure
+	for rows.Next() {
+		post, user, date := new(Post), new(User), new(mysql.NullTime)
+		err = rows.Scan(&post.Slug, &post.Title, date, &user.Id, &user.Name)
+		if err != nil {
+			return
+		}
+
+		post.Author = *user
+		if date.Valid {
+			post.Date = date.Time
+		}
+
+		posts = append(posts, *post)
+	}
+
+	err = nil
+	return
+}
+
+// Fetches one post from the database based on ID
+// or slug
 func (p *Post) Fetch() error {
 	var data *sql.Row
 

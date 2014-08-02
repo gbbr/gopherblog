@@ -5,8 +5,6 @@ import (
 	"errors"
 )
 
-const SQL_USER_BY_ID = "SELECT name, email FROM users WHERE idUser=?"
-
 // Contains information about a user
 type User struct {
 	Id          int

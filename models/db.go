@@ -8,6 +8,26 @@ import (
 
 var db *sql.DB
 
+const (
+	SQL_POST_BY_ID = `
+		SELECT title, body, date, idUser, users.name, users.email 
+		FROM posts 
+		INNER JOIN users USING(idUser)
+		WHERE idPost=?`
+	SQL_POST_BY_SLUG = `
+		SELECT title, body, date, idUser, users.name, users.email 
+		FROM posts 
+		INNER JOIN users USING(idUser)
+		WHERE slug=?`
+	SQL_ALL_POSTS = `
+		SELECT slug, title, date, idUser, users.name
+		FROM posts
+		INNER JOIN users USING(idUser)
+		ORDER BY date DESC LIMIT ?`
+	SQL_USER_BY_ID = `
+		SELECT name, email FROM users WHERE idUser=?`
+)
+
 // Creates and tests database connection
 func ConnectDb(address string) {
 	var err error
