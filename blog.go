@@ -15,11 +15,11 @@ type Config struct {
 	DbString string
 }
 
-func ViewPost(w http.ResponseWriter, r *http.Request) {
-	slug := r.URL.Path[len("/posts/")-1:]
-	post := &Post{slug: slug}
-	err := post.Fetch()
-	if err != nil {
+func viewPost(w http.ResponseWriter, r *http.Request) {
+	post := &Post{
+		slug: r.URL.Path[len("/posts/")-1:],
+	}
+	if err := post.Fetch(); err != nil {
 		fmt.Fprintf(w, "%+v", "Post not found")
 	}
 	fmt.Fprintf(w, "%+v", post)
@@ -33,9 +33,9 @@ func main() {
 		DbString: "root:root@tcp(localhost:3306)/blog",
 	}
 
-	http.HandleFunc("/post/", ViewPost)
-
+	http.HandleFunc("/post/", viewPost)
 	db, err = sql.Open("mysql", conf.DbString)
+
 	if err != nil {
 		log.Fatal("Error opening DB")
 	}
