@@ -7,17 +7,23 @@ import (
 	"time"
 )
 
-const (
-	SQL_POST_BY_ID   = "SELECT title, body, idUser, date FROM posts WHERE idPost=?"
-	SQL_POST_BY_SLUG = "SELECT title, body, idUser, date FROM posts WHERE slug=?"
-)
-
 type Post struct {
 	Id                int
 	Slug, Title, Body string
 	Author            User
 	Date              time.Time
 }
+
+const (
+	SQL_POST_BY_ID = `SELECT title, body, date, idUser, users.name, users.email 
+		FROM posts 
+		INNER JOIN users USING(idUser)
+		WHERE idPost=?`
+	SQL_POST_BY_SLUG = `SELECT title, body, date, idUser, users.name, users.email 
+		FROM posts 
+		INNER JOIN users USING(idUser)
+		WHERE slug=?`
+)
 
 // Fetches data from database by ID or slug (whichever one is available)
 // and updates structure
@@ -46,20 +52,15 @@ func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)
 	author := new(User)
 
-	err := data.Scan(&p.Title, &p.Body, &author.Id, date)
+	err := data.Scan(&p.Title, &p.Body, date, &author.Id, &author.Name, &author.Email)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Post not found")
 	}
 
+	p.Author = *author
 	if date.Valid {
 		p.Date = date.Time
 	}
 
-	err = author.Fetch()
-	if err != nil {
-		return err
-	}
-
-	p.Author = *author
 	return nil
 }
