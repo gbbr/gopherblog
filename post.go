@@ -48,18 +48,19 @@ func (p *Post) bySlug(slug string) *sql.Row {
 func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)
 	author := new(User)
-	err := data.Scan(&p.title, &p.body, &author.id, date)
 
+	err := data.Scan(&p.title, &p.body, &author.id, date)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Post not found")
 	}
 
-	if err := author.Fetch(); err != nil {
-		return err
-	}
-
 	if date.Valid {
 		p.date = date.Time
+	}
+
+	err = author.Fetch()
+	if err != nil {
+		return err
 	}
 
 	p.author = *author
