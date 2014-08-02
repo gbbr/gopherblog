@@ -33,7 +33,7 @@ func validateLoginForm(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user.LoginCorrect() {
-		origin := []byte(r.RemoteAddr + r.UserAgent())
+		origin := []byte(string(user.Email) + r.RemoteAddr + r.UserAgent())
 		val := fmt.Sprintf("%d:%x", user.Id, sha256.Sum256(origin))
 		http.SetCookie(w, &http.Cookie{
 			Name:  "auth",

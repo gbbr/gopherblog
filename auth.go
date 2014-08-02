@@ -23,7 +23,7 @@ func authenticate(dest httpHandler) httpHandler {
 		}
 
 		parts := strings.Split(c.Value, ":")
-		// Can we extract an integer
+		// Can we extract an integer?
 		uid, err := strconv.Atoi(parts[0])
 		if err != nil {
 			http.Redirect(w, r, "/login?return="+r.URL.Path, 307)
@@ -37,7 +37,7 @@ func authenticate(dest httpHandler) httpHandler {
 			return
 		}
 
-		origin := []byte(r.RemoteAddr + r.UserAgent())
+		origin := []byte(string(user.Email) + r.RemoteAddr + r.UserAgent())
 		hash := fmt.Sprintf("%x", sha256.Sum256(origin))
 
 		// Does the hash match the origin?
