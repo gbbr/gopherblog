@@ -9,11 +9,14 @@ import (
 
 var db *sql.DB
 
+// Holds web server and database connection
+// strings
 type Config struct {
 	Host     string
 	DbString string
 }
 
+// Creates and tests database connection
 func connectDB(address string) {
 	var err error
 	db, err = sql.Open("mysql", address)
