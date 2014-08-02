@@ -18,6 +18,7 @@ type Config struct {
 // Creates and tests database connection
 func connectDB(address string) {
 	var err error
+
 	db, err = sql.Open("mysql", address)
 	if err != nil {
 		log.Fatal("Error opening DB")
