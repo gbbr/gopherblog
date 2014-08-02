@@ -15,14 +15,17 @@ type Config struct {
 
 func main() {
 	conf := Config{
-		Host:     "localhost:8080",
+		Host:     "mecca.local:8080",
 		DbString: "root:root@tcp(localhost:3306)/blog",
 	}
 
 	models.ConnectDb(conf.DbString)
 
-	http.HandleFunc("/post/", views.ViewPost)
 	http.HandleFunc("/", views.ViewHome)
+	http.HandleFunc("/post/", views.ViewPost)
+	http.HandleFunc("/login", views.ViewLogin)
+	http.HandleFunc("/edit", authenticate(views.ViewEdit))
+	http.HandleFunc("/edit/", authenticate(views.ViewEditPost))
 
 	err := http.ListenAndServe(conf.Host, nil)
 	if err != nil {

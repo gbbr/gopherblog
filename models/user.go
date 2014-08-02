@@ -9,6 +9,8 @@ import (
 type User struct {
 	Id          int
 	Name, Email string
+	Password    string
+	IsAuthor    bool
 }
 
 // Fetches a user by ID and updates the structure
@@ -24,6 +26,23 @@ func (u *User) Fetch() error {
 	}
 
 	return nil
+}
+
+// Verifies if a password & e-mail combination is
+// correct for the user and fetches rest of data
+func (u *User) LoginCorrect() bool {
+	if len(u.Email) == 0 || len(u.Password) == 0 {
+		return false
+	}
+
+	row := db.QueryRow(SQL_USER_AUTH, u.Email, u.Password)
+	err := row.Scan(&u.Name, &u.Id, &u.IsAuthor)
+
+	if err != nil || err == sql.ErrNoRows {
+		return false
+	}
+
+	return true
 }
 
 // Updates user structure with data from database

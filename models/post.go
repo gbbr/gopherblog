@@ -23,13 +23,13 @@ func Posts(limit int) (posts []Post, err error) {
 	}
 
 	for rows.Next() {
-		post, user, date := new(Post), new(User), new(mysql.NullTime)
-		err = rows.Scan(&post.Slug, &post.Title, date, &user.Id, &user.Name)
+		post, author, date := new(Post), new(User), new(mysql.NullTime)
+		err = rows.Scan(&post.Slug, &post.Title, date, &author.Id, &author.Name)
 		if err != nil {
 			return
 		}
 
-		post.Author = *user
+		post.Author = *author
 		if date.Valid {
 			post.Date = date.Time
 		}

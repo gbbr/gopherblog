@@ -24,8 +24,11 @@ const (
 		FROM posts
 		INNER JOIN users USING(idUser)
 		ORDER BY date DESC LIMIT ?`
+
 	SQL_USER_BY_ID = `
 		SELECT name, email FROM users WHERE idUser=?`
+	SQL_USER_AUTH = `
+		SELECT name, idUser, isAuthor FROM users WHERE email=? AND password=?`
 )
 
 // Creates and tests database connection
