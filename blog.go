@@ -9,8 +9,7 @@ import (
 
 var db *sql.DB
 
-// Holds web server and database connection
-// strings
+// Holds web server and database connection strings
 type Config struct {
 	Host     string
 	DbString string
