@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
 	"database/sql"
@@ -8,10 +8,10 @@ import (
 )
 
 type Post struct {
-	id                int
-	slug, title, body string
-	author            User
-	date              time.Time
+	Id                int
+	Slug, Title, Body string
+	Author            User
+	Date              time.Time
 }
 
 // Fetches data from database by ID or slug (whichever one is available)
@@ -20,10 +20,10 @@ func (p *Post) Fetch() error {
 	var data *sql.Row
 
 	switch {
-	case p.id != 0:
-		data = p.byId(p.id)
-	case p.slug != "":
-		data = p.bySlug(p.slug)
+	case p.Id != 0:
+		data = p.byId(p.Id)
+	case p.Slug != "":
+		data = p.bySlug(p.Slug)
 	default:
 		return errors.New("Must provide ID or slug for fetching")
 	}
@@ -49,13 +49,13 @@ func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)
 	author := new(User)
 
-	err := data.Scan(&p.title, &p.body, &author.id, date)
+	err := data.Scan(&p.Title, &p.Body, &author.Id, date)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Post not found")
 	}
 
 	if date.Valid {
-		p.date = date.Time
+		p.Date = date.Time
 	}
 
 	err = author.Fetch()
@@ -63,6 +63,6 @@ func (p *Post) update(data *sql.Row) error {
 		return err
 	}
 
-	p.author = *author
+	p.Author = *author
 	return nil
 }

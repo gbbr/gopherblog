@@ -1,33 +1,16 @@
 package main
 
 import (
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/backslashed/gopherblog/models"
+	"github.com/backslashed/gopherblog/views"
 	"log"
 	"net/http"
 )
-
-var db *sql.DB
 
 // Holds web server and database connection strings
 type Config struct {
 	Host     string
 	DbString string
-}
-
-// Creates and tests database connection
-func connectDB(address string) {
-	var err error
-
-	db, err = sql.Open("mysql", address)
-	if err != nil {
-		log.Fatal("Error opening DB")
-	}
-
-	err = db.Ping()
-	if err != nil {
-		log.Fatal("Error connecting to DB")
-	}
 }
 
 func main() {
@@ -36,9 +19,9 @@ func main() {
 		DbString: "root:root@tcp(localhost:3306)/blog",
 	}
 
-	http.HandleFunc("/post/", viewPost)
+	models.ConnectDb(conf.DbString)
+	http.HandleFunc("/post/", views.ViewPost)
 
-	connectDB(conf.DbString)
 	err := http.ListenAndServe(conf.Host, nil)
 	if err != nil {
 		log.Fatal("Error starting server.")
