@@ -41,6 +41,34 @@ func Posts(limit int) (posts []Post, err error) {
 	return
 }
 
+// Fetches all posts by user's ID
+func PostsByUser(uid int) (posts []Post, err error) {
+	rows, err := db.Query(SQL_POSTS_BY_USER, uid)
+	defer rows.Close()
+	if err != nil {
+		return
+	}
+
+	for rows.Next() {
+		p, date := new(Post), new(mysql.NullTime)
+		err = rows.Scan(&p.Title, &p.Slug, date)
+		if err != nil {
+			return
+		}
+
+		if date.Valid {
+			p.Date = date.Time
+		} else {
+			return
+		}
+
+		posts = append(posts, *p)
+	}
+
+	err = nil
+	return
+}
+
 // Fetches one post from the database based on ID
 // or slug
 func (p *Post) Fetch() error {
