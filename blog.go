@@ -38,7 +38,6 @@ func main() {
 	http.HandleFunc("/post/", viewPost)
 
 	connectDB(conf.DbString)
-
 	err := http.ListenAndServe(conf.Host, nil)
 	if err != nil {
 		log.Fatal("Error starting server.")
