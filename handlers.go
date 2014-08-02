@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Fetches a new post and displays it
 func viewPost(w http.ResponseWriter, r *http.Request) {
 	post := &Post{
 		slug: r.URL.Path[len("/posts/")-1:],
