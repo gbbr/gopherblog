@@ -28,9 +28,11 @@ func (p *Post) Fetch() error {
 		return errors.New("Must provide ID or slug for fetching")
 	}
 
-	if err := p.update(data); err != nil {
+	err := p.update(data)
+	if err != nil {
 		return errors.New("Error scanning row")
 	}
+
 	return nil
 }
 
