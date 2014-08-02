@@ -22,11 +22,6 @@ func ViewLogin(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if user.LoginCorrect() {
-			redirect := r.FormValue("redirectUrl")
-			if len(redirect) == 0 {
-				redirect = "/"
-			}
-
 			origin := []byte(r.RemoteAddr + r.UserAgent())
 			val := fmt.Sprintf("%d:%x", user.Id, sha256.Sum256(origin))
 			http.SetCookie(w, &http.Cookie{
@@ -34,7 +29,7 @@ func ViewLogin(w http.ResponseWriter, r *http.Request) {
 				Value: val,
 			})
 
-			http.Redirect(w, r, redirect, 307)
+			http.Redirect(w, r, r.FormValue("redirectUrl"), 307)
 		}
 
 		tplData.Msg = "Invalid login and password combination."
