@@ -15,11 +15,13 @@ type Post struct {
 }
 
 const (
-	SQL_POST_BY_ID = `SELECT title, body, date, idUser, users.name, users.email 
+	SQL_POST_BY_ID = `
+		SELECT title, body, date, idUser, users.name, users.email 
 		FROM posts 
 		INNER JOIN users USING(idUser)
 		WHERE idPost=?`
-	SQL_POST_BY_SLUG = `SELECT title, body, date, idUser, users.name, users.email 
+	SQL_POST_BY_SLUG = `
+		SELECT title, body, date, idUser, users.name, users.email 
 		FROM posts 
 		INNER JOIN users USING(idUser)
 		WHERE slug=?`
