@@ -19,9 +19,12 @@ func viewPost(w http.ResponseWriter, r *http.Request) {
 	post := &Post{
 		slug: r.URL.Path[len("/posts/")-1:],
 	}
-	if err := post.Fetch(); err != nil {
+
+	err := post.Fetch()
+	if err != nil {
 		fmt.Fprintf(w, "%+v", "Post not found")
 	}
+
 	fmt.Fprintf(w, "%+v", post)
 }
 
@@ -34,13 +37,14 @@ func main() {
 	}
 
 	http.HandleFunc("/post/", viewPost)
-	db, err = sql.Open("mysql", conf.DbString)
 
+	db, err = sql.Open("mysql", conf.DbString)
 	if err != nil {
 		log.Fatal("Error opening DB")
 	}
 
-	if err = db.Ping(); err != nil {
+	err = db.Ping()
+	if err != nil {
 		log.Fatal("Error connecting to DB")
 	}
 
