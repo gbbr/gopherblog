@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/backslashed/gopherblog/controllers"
 	"github.com/backslashed/gopherblog/models"
-	"github.com/backslashed/gopherblog/views"
 	"log"
 	"net/http"
 )
@@ -21,11 +21,11 @@ func main() {
 
 	models.ConnectDb(conf.DbString)
 
-	http.HandleFunc("/", views.ViewHome)
-	http.HandleFunc("/post/", views.ViewPost)
-	http.HandleFunc("/login", views.ViewLogin)
-	http.HandleFunc("/edit", authenticate(views.ViewEdit))
-	http.HandleFunc("/edit/", authenticate(views.ViewEditPost))
+	http.HandleFunc("/", controller.ViewHome)
+	http.HandleFunc("/post/", controller.ViewPost)
+	http.HandleFunc("/login", controller.ViewLogin)
+	http.HandleFunc("/edit", authenticate(controller.ViewEdit))
+	http.HandleFunc("/edit/", authenticate(controller.ViewEditPost))
 
 	err := http.ListenAndServe(conf.Host, nil)
 	if err != nil {

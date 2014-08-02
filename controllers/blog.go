@@ -1,22 +1,10 @@
-package views
+package controller
 
 import (
 	"fmt"
 	"github.com/backslashed/gopherblog/models"
-	"html/template"
 	"net/http"
 )
-
-var tpl *template.Template
-
-func init() {
-	templates := []string{
-		"views/templates/login.html",
-		"views/templates/404.html",
-	}
-
-	tpl = template.Must(template.ParseFiles(templates...))
-}
 
 // Fetches a new post and displays it
 func ViewPost(w http.ResponseWriter, r *http.Request) {
