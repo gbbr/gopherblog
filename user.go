@@ -17,9 +17,12 @@ func (u *User) Fetch() error {
 		return errors.New("Need ID to fetch")
 	}
 	row := db.QueryRow("SELECT name, email FROM users WHERE idUser=?", u.id)
-	if err := u.update(row); err != nil {
+
+	err := u.update(row)
+	if err != nil {
 		return errors.New("Error scanning")
 	}
+
 	return nil
 }
 
@@ -29,5 +32,6 @@ func (u *User) update(row *sql.Row) error {
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Could not fetch author")
 	}
+
 	return nil
 }
