@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	SQL_POST_BYID   = "SELECT title, body, idUser, date FROM posts WHERE idPost=?"
-	SQL_POST_BYSLUG = "SELECT title, body, idUser, date FROM posts WHERE slug=?"
+	SQL_POST_BY_ID   = "SELECT title, body, idUser, date FROM posts WHERE idPost=?"
+	SQL_POST_BY_SLUG = "SELECT title, body, idUser, date FROM posts WHERE slug=?"
 )
 
 type Post struct {
@@ -26,9 +26,9 @@ func (p *Post) Fetch() error {
 
 	switch {
 	case p.Id != 0:
-		data = db.QueryRow(SQL_POST_BYID, p.Id)
+		data = db.QueryRow(SQL_POST_BY_ID, p.Id)
 	case p.Slug != "":
-		data = db.QueryRow(SQL_POST_BYSLUG, p.Slug)
+		data = db.QueryRow(SQL_POST_BY_SLUG, p.Slug)
 	default:
 		return errors.New("Must provide ID or slug for fetching")
 	}
