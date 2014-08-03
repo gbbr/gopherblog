@@ -42,8 +42,8 @@ func Posts(limit int) (posts []Post, err error) {
 }
 
 // Fetches all posts by user's ID
-func PostsByUser(uid int) (posts []Post, err error) {
-	rows, err := db.Query(SQL_POSTS_BY_USER, uid)
+func PostsByUser(u *User) (posts []Post, err error) {
+	rows, err := db.Query(SQL_POSTS_BY_USER, u.Id)
 	defer rows.Close()
 	if err != nil {
 		return
