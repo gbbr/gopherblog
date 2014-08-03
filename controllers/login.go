@@ -32,7 +32,7 @@ func validateLoginForm(w http.ResponseWriter, r *http.Request) {
 		Password: md5pass,
 	}
 
-	if user.LoginCorrect() && user.IsAuthor {
+	if user.LoginCorrect() {
 		origin := []byte(string(user.Email) + r.RemoteAddr + r.UserAgent())
 		val := fmt.Sprintf("%d:%x", user.Id, sha256.Sum256(origin))
 		http.SetCookie(w, &http.Cookie{

@@ -30,11 +30,11 @@ const (
 		ORDER BY date DESC LIMIT ?`
 
 	SQL_USER_BY_ID = `
-		SELECT name, email, isAuthor 
+		SELECT name, email 
 		FROM users 
 		WHERE idUser=?`
 	SQL_USER_AUTH = `
-		SELECT name, idUser, isAuthor
+		SELECT name, idUser
 		FROM users 
 		WHERE email=? AND password=?`
 )

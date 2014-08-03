@@ -75,7 +75,6 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` char(32) NOT NULL,
-  `isAuthor` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idUser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

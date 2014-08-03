@@ -10,7 +10,6 @@ type User struct {
 	Id          int
 	Name, Email string
 	Password    string
-	IsAuthor    bool
 }
 
 // Fetches a user by ID and updates the structure
@@ -36,7 +35,7 @@ func (u *User) LoginCorrect() bool {
 	}
 
 	row := db.QueryRow(SQL_USER_AUTH, u.Email, u.Password)
-	err := row.Scan(&u.Name, &u.Id, &u.IsAuthor)
+	err := row.Scan(&u.Name, &u.Id)
 
 	if err != nil || err == sql.ErrNoRows {
 		return false
@@ -47,7 +46,7 @@ func (u *User) LoginCorrect() bool {
 
 // Updates user structure with data from database
 func (u *User) update(row *sql.Row) error {
-	err := row.Scan(&u.Name, &u.Email, &u.IsAuthor)
+	err := row.Scan(&u.Name, &u.Email)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Could not fetch author")
 	}
