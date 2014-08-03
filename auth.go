@@ -15,7 +15,7 @@ type httpHandler func(http.ResponseWriter, *http.Request)
 // given HTTP handler, otherwise redirects to login page
 func authenticate(dest httpHandler) httpHandler {
 	return httpHandler(func(w http.ResponseWriter, r *http.Request) {
-		if !isCookieValid(w, r) {
+		if !isValidRequest(r) {
 			http.Redirect(w, r, "/login?return="+r.URL.Path, 307)
 			return
 		}
@@ -25,7 +25,7 @@ func authenticate(dest httpHandler) httpHandler {
 }
 
 // Validates cookie and authentication token
-func isCookieValid(w http.ResponseWriter, r *http.Request) bool {
+func isValidRequest(r *http.Request) bool {
 	// Does authentication cookie exist?
 	c, err := r.Cookie("auth")
 	if err != nil || err == http.ErrNoCookie {
