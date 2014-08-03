@@ -11,7 +11,7 @@ import (
 
 type httpHandler func(http.ResponseWriter, *http.Request)
 
-// Confirms that a user is authenticated before procdeeding to the
+// Confirms that a user is authenticated & author before proceeding to the
 // given HTTP handler, otherwise redirects to login page
 func authenticate(dest httpHandler) httpHandler {
 	return httpHandler(func(w http.ResponseWriter, r *http.Request) {
@@ -30,9 +30,9 @@ func authenticate(dest httpHandler) httpHandler {
 			return
 		}
 
-		// Is there a user with that ID?
+		// Is there an author with that ID?
 		user := &models.User{Id: uid}
-		if err := user.Fetch(); err != nil {
+		if err := user.Fetch(); err != nil || !user.IsAuthor {
 			http.Redirect(w, r, "/login?return="+r.URL.Path, 307)
 			return
 		}

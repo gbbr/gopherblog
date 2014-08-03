@@ -47,7 +47,7 @@ func (u *User) LoginCorrect() bool {
 
 // Updates user structure with data from database
 func (u *User) update(row *sql.Row) error {
-	err := row.Scan(&u.Name, &u.Email)
+	err := row.Scan(&u.Name, &u.Email, &u.IsAuthor)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Could not fetch author")
 	}
