@@ -1,0 +1,9 @@
+{{define "edit"}}
+{{template "header" "Edit your articles"}}
+	<ul>
+		{{range .}}
+			<li><a href="/edit/{{.Id}}">{{.Title}}</a>{{if .Draft}} (DRAFT) {{end}}</li>
+		{{end}}
+	</ul>
+{{template "footer"}}
+{{end}}

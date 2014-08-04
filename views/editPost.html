@@ -1,0 +1,13 @@
+{{define "editPost"}}
+{{template "header" "Edit Post"}}
+<form method="POST">
+	<input type="text" name="title" value="{{.Title}}" />
+	<input type="text" name="slug" value="{{.Slug}}" />
+	<input type="checkbox" name="draft" {{if not .Draft}}checked="true"{{end}} />
+	<textarea name="body">
+		{{.Body}}
+	</textarea>
+	<input type="submit" value="Save" />
+</form>
+{{template "footer"}}
+{{end}}
