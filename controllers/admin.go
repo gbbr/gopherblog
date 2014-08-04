@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/backslashed/gopherblog/models"
 	"net/http"
 	"strconv"
