@@ -40,6 +40,6 @@ func validateLoginForm(w http.ResponseWriter, r *http.Request) {
 			Value: val,
 		})
 
-		http.Redirect(w, r, r.FormValue("redirectUrl"), 307)
+		http.Redirect(w, r, r.FormValue("redirectUrl"), http.StatusFound)
 	}
 }

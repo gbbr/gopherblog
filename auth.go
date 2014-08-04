@@ -18,7 +18,7 @@ func authenticate(dest authHandler) httpHandler {
 	return httpHandler(func(w http.ResponseWriter, r *http.Request) {
 		user, isValid := isValidRequest(r)
 		if !isValid {
-			http.Redirect(w, r, "/login?return="+r.URL.Path, 307)
+			http.Redirect(w, r, "/login?return="+r.URL.Path, http.StatusFound)
 			return
 		}
 

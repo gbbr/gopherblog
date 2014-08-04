@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/backslashed/gopherblog/models"
 	"net/http"
 	"strconv"
@@ -8,7 +9,7 @@ import (
 
 func ViewEdit(w http.ResponseWriter, r *http.Request, u *models.User) {
 	if u.Id == 0 {
-		http.Redirect(w, r, "/login?return="+r.URL.Path, 307)
+		http.Redirect(w, r, "/login?return="+r.URL.Path, http.StatusFound)
 	}
 
 	up, _ := models.PostsByUser(u) //todo: handle err
