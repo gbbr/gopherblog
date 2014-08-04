@@ -24,7 +24,7 @@ func ViewEditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 
 	post := &models.Post{Id: pId}
 	err = post.Fetch()
-	if err != nil {
+	if err != nil || post.Author.Id != u.Id {
 		tpl.ExecuteTemplate(w, "404", nil)
 		return
 	}
