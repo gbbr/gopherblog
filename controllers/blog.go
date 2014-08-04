@@ -9,12 +9,12 @@ import (
 // Fetches a new post and displays it
 func ViewPost(w http.ResponseWriter, r *http.Request) {
 	post := &models.Post{
-		Slug: r.URL.Path[len("/posts/")-1:],
+		Slug: r.URL.Path[len("/post/"):],
 	}
 
 	err := post.Fetch()
 	if err != nil {
-		tpl.ExecuteTemplate(w, "404.html", nil)
+		tpl.ExecuteTemplate(w, "404", nil)
 		return
 	}
 
@@ -26,7 +26,7 @@ func ViewHome(w http.ResponseWriter, r *http.Request) {
 	posts, err := models.Posts(200)
 
 	if err != nil || len(r.URL.Path) > 1 {
-		tpl.ExecuteTemplate(w, "404.html", nil)
+		tpl.ExecuteTemplate(w, "404", nil)
 		return
 	}
 

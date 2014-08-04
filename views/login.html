@@ -1,3 +1,5 @@
+{{define "login"}}
+{{template "header" "Authentication required"}}
 <h1>Login</h1>
 <h3 style="color: #f00">{{.Msg}}</h3>
 <form method="POST">
@@ -12,3 +14,5 @@
 	<p class="submit"><input type="submit" name="commit" value="Login"></p>
 	<input type="hidden" name="redirectUrl" value="{{.ReturnUrl}}" />
 </form>
+{{template "footer"}}
+{{end}}

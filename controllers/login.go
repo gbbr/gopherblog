@@ -19,7 +19,7 @@ func ViewLogin(w http.ResponseWriter, r *http.Request) {
 		tplData.Msg = "Invalid login and password combination."
 	}
 
-	tpl.ExecuteTemplate(w, "login.html", tplData)
+	tpl.ExecuteTemplate(w, "login", tplData)
 }
 
 // Validates the login form's POST and redirects the user if login

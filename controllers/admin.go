@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/backslashed/gopherblog/models"
 	"net/http"
+	"strconv"
 )
 
 func ViewEdit(w http.ResponseWriter, r *http.Request, u *models.User) {
@@ -12,9 +12,22 @@ func ViewEdit(w http.ResponseWriter, r *http.Request, u *models.User) {
 	}
 
 	up, _ := models.PostsByUser(u) //todo: handle err
-	fmt.Fprintf(w, "%+v\n\nEDIT", up)
+	tpl.ExecuteTemplate(w, "edit", up)
 }
 
 func ViewEditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
-	fmt.Fprintf(w, "%+v\n\nEDIT POST", r)
+	pId, err := strconv.Atoi(r.URL.Path[len("/edit/"):])
+	if err != nil {
+		tpl.ExecuteTemplate(w, "404", nil)
+		return
+	}
+
+	post := &models.Post{Id: pId}
+	err = post.Fetch()
+	if err != nil {
+		tpl.ExecuteTemplate(w, "404", nil)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "editPost", post)
 }
