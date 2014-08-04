@@ -12,6 +12,7 @@ type Post struct {
 	Slug, Title, Body string
 	Author            User
 	Date              time.Time
+	Draft             bool
 }
 
 // Fetches number of posts from the database ordered by date
@@ -51,7 +52,7 @@ func PostsByUser(u *User) (posts []Post, err error) {
 
 	for rows.Next() {
 		p, date := new(Post), new(mysql.NullTime)
-		err = rows.Scan(&p.Title, &p.Slug, date)
+		err = rows.Scan(&p.Id, &p.Title, &p.Slug, date, &p.Draft)
 		if err != nil {
 			return
 		}
@@ -96,7 +97,7 @@ func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)
 	author := new(User)
 
-	err := data.Scan(&p.Title, &p.Body, date, &author.Id, &author.Name, &author.Email)
+	err := data.Scan(&p.Slug, &p.Title, &p.Body, date, &author.Id, &author.Name, &author.Email, &p.Draft)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Post not found")
 	}
