@@ -40,7 +40,6 @@ func validateLoginForm(w http.ResponseWriter, r *http.Request) {
 			Value: val,
 		})
 
-		w.Header().Set("Method", "GET")
 		http.Redirect(w, r, r.FormValue("redirectUrl"), 307)
 	}
 }
