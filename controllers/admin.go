@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/backslashed/gopherblog/models"
+	"github.com/gbbr/gopherblog/models"
 	"net/http"
 	"strconv"
 )

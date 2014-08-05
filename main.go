@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/backslashed/gopherblog/controllers"
-	"github.com/backslashed/gopherblog/models"
+	"github.com/gbbr/gopherblog/controllers"
+	"github.com/gbbr/gopherblog/models"
 	"log"
 	"net/http"
 )

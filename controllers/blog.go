@@ -2,7 +2,7 @@ package controller
 
 import (
 	"fmt"
-	"github.com/backslashed/gopherblog/models"
+	"github.com/gbbr/gopherblog/models"
 	"net/http"
 )
 

@@ -3,7 +3,7 @@ package main
 import (
 	"crypto/sha256"
 	"fmt"
-	"github.com/backslashed/gopherblog/models"
+	"github.com/gbbr/gopherblog/models"
 	"net/http"
 	"strconv"
 	"strings"
