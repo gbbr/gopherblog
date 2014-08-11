@@ -11,8 +11,18 @@ import (
 func NewPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 	switch r.Method {
 	case "POST":
-		savePost(0, r.FormValue, *u) //todo: handle err
+		keys := r.FormValue
+		post := &models.Post{
+			Slug:   keys("slug"),
+			Title:  keys("title"),
+			Body:   strings.Trim(keys("body"), " \t\r\n"),
+			Author: *u,
+			Draft:  keys("draft") != "on",
+		}
+
+		post.Save() //todo: handle err
 		http.Redirect(w, r, "/manage", http.StatusFound)
+
 	case "GET":
 		tpl.ExecuteTemplate(w, "editPost", nil)
 	}
@@ -38,7 +48,17 @@ func EditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 
 	switch r.Method {
 	case "POST":
-		savePost(pId, r.FormValue, *u) //todo: handle err
+		keys := r.FormValue
+		post := &models.Post{
+			Id:     pId,
+			Slug:   keys("slug"),
+			Title:  keys("title"),
+			Body:   strings.Trim(keys("body"), " \t\r\n"),
+			Author: *u,
+			Draft:  keys("draft") != "on",
+		}
+
+		post.Save() //todo: handle err
 		http.Redirect(w, r, "/manage", http.StatusFound)
 
 	case "GET":
@@ -52,26 +72,4 @@ func EditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 
 		tpl.ExecuteTemplate(w, "editPost", post)
 	}
-}
-
-// Reads from the passed form retrieval function (Request.FormValue)
-// and saves the submitted form data for the given author. Send ID
-// as 0 for unexisting post
-func savePost(id int, form func(string) string, author models.User) error {
-	draft := true
-
-	if form("draft") == "on" {
-		draft = false
-	}
-
-	post := &models.Post{
-		Id:     id,
-		Slug:   form("slug"),
-		Title:  form("title"),
-		Body:   strings.Trim(form("body"), " \t\r\n"),
-		Author: author,
-		Draft:  draft,
-	}
-
-	return post.Save()
 }
