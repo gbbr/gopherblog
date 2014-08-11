@@ -92,6 +92,21 @@ func (p *Post) Fetch() error {
 	return nil
 }
 
+// Saves a post to the database. If it has a set ID it will try to
+// update an already existing post, otherwise it will insert a new post
+// and generate an ID for it
+func (p *Post) Save() error {
+	var err error
+
+	if p.Id == 0 {
+		_, err = db.Exec(SQL_INSERT_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft)
+	} else {
+		_, err = db.Exec(SQL_UPDATE_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft, p.Id)
+	}
+
+	return err
+}
+
 // Scans a fetched row and updates the structure
 func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)

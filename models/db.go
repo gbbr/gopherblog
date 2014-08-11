@@ -30,6 +30,12 @@ const (
 		INNER JOIN users USING(idUser)
 		WHERE draft=false
 		ORDER BY date DESC LIMIT ?`
+	SQL_INSERT_POST = `
+		INSERT INTO posts (slug, title, body, idUser, draft)
+		VALUES (?, ?, ?, ?, ?)`
+	SQL_UPDATE_POST = `
+		UPDATE posts SET slug=?, title=?, body=?, idUser=?, draft=?
+		WHERE idPost=?`
 
 	SQL_USER_BY_ID = `
 		SELECT name, email 

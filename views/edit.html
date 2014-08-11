@@ -1,5 +1,6 @@
 {{define "edit"}}
 {{template "header" "Edit your articles"}}
+	<a href="/new">New post</a>
 	<ul>
 		{{range .}}
 			<li><a href="/edit/{{.Id}}">{{.Title}}</a>{{if .Draft}} (DRAFT) {{end}}</li>

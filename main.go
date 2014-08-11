@@ -21,11 +21,12 @@ func main() {
 
 	models.ConnectDb(conf.DbString)
 
-	http.HandleFunc("/", controller.ViewHome)
-	http.HandleFunc("/post/", controller.ViewPost)
-	http.HandleFunc("/login", controller.ViewLogin)
-	http.HandleFunc("/edit", authenticate(controller.ViewEdit))
-	http.HandleFunc("/edit/", authenticate(controller.ViewEditPost))
+	http.HandleFunc("/", controller.Home)
+	http.HandleFunc("/post/", controller.Post)
+	http.HandleFunc("/login", controller.Login)
+	http.HandleFunc("/new", authenticate(controller.NewPost))
+	http.HandleFunc("/manage", authenticate(controller.Manage))
+	http.HandleFunc("/edit/", authenticate(controller.EditPost))
 
 	err := http.ListenAndServe(conf.Host, nil)
 	if err != nil {

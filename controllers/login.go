@@ -9,7 +9,7 @@ import (
 )
 
 // Displays the login form template. Interprets both GET and POST
-func ViewLogin(w http.ResponseWriter, r *http.Request) {
+func Login(w http.ResponseWriter, r *http.Request) {
 	tplData := struct{ Msg, ReturnUrl string }{
 		ReturnUrl: r.URL.Query().Get("return"),
 	}
