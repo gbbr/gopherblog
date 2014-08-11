@@ -25,7 +25,7 @@ func Manage(w http.ResponseWriter, r *http.Request, u *models.User) {
 	}
 
 	up, _ := models.PostsByUser(u) //todo: handle err
-	tpl.ExecuteTemplate(w, "edit", up)
+	tpl.ExecuteTemplate(w, "manage", up)
 }
 
 // Edit a post

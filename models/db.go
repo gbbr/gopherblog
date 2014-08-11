@@ -61,3 +61,8 @@ func ConnectDb(address string) {
 		log.Fatal("Error connecting to DB")
 	}
 }
+
+// Closes database connection
+func CloseDb() {
+	db.Close()
+}

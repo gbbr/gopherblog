@@ -18,10 +18,10 @@ type Post struct {
 // Fetches number of posts from the database ordered by date
 func Posts(limit int) (posts []Post, err error) {
 	rows, err := db.Query(SQL_ALL_POSTS, limit)
-	defer rows.Close()
 	if err != nil {
 		return
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		post, author, date := new(Post), new(User), new(mysql.NullTime)

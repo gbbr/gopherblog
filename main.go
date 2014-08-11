@@ -28,8 +28,6 @@ func main() {
 	http.HandleFunc("/manage", authenticate(controller.Manage))
 	http.HandleFunc("/edit/", authenticate(controller.EditPost))
 
-	err := http.ListenAndServe(conf.Host, nil)
-	if err != nil {
-		log.Fatal("Error starting server.")
-	}
+	log.Fatal(http.ListenAndServe(conf.Host, nil))
+	models.CloseDb()
 }
