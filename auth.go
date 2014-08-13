@@ -9,13 +9,12 @@ import (
 	"strings"
 )
 
-type httpHandler func(http.ResponseWriter, *http.Request)
 type authHandler func(http.ResponseWriter, *http.Request, *models.User)
 
 // Confirms that a user is authenticated & author before proceeding to the
 // given HTTP handler, otherwise redirects to login page
-func authenticate(dest authHandler) httpHandler {
-	return httpHandler(func(w http.ResponseWriter, r *http.Request) {
+func authenticate(dest authHandler) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user, isValid := isValidRequest(r)
 		if !isValid {
 			http.Redirect(w, r, "/login?return="+r.URL.Path, http.StatusFound)

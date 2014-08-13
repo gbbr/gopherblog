@@ -2,7 +2,7 @@
 {{template "header" "GopherBlog"}}
 	<ul>
 		{{range .}}
-			<li><a href="/post/{{.Slug}}">{{.Title}}</a></li>
+			<li><a href="/post/{{.Slug}}">{{.Title}}</a> by {{.Author.Name}}, posted on {{.FormattedDate}}</li>
 		{{end}}
 	</ul>
 {{template "footer"}}

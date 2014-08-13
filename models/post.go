@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	mysql "github.com/go-sql-driver/mysql"
 	"time"
 )
@@ -105,6 +106,12 @@ func (p *Post) Save() error {
 	}
 
 	return err
+}
+
+// Returns the formatted date as a string
+func (p *Post) FormattedDate() string {
+	year, month, day := p.Date.Date()
+	return fmt.Sprintf("%d %s %d", day, month, year)
 }
 
 // Scans a fetched row and updates the structure
