@@ -20,14 +20,20 @@ func main() {
 	}
 
 	models.ConnectDb(conf.DbString)
+	defer models.CloseDb()
 
-	http.HandleFunc("/", controller.Home)
-	http.HandleFunc("/post/", controller.Post)
-	http.HandleFunc("/login", controller.Login)
-	http.HandleFunc("/new", authenticate(controller.NewPost))
-	http.HandleFunc("/manage", authenticate(controller.Manage))
-	http.HandleFunc("/edit/", authenticate(controller.EditPost))
+	mux := http.NewServeMux()
 
-	log.Fatal(http.ListenAndServe(conf.Host, nil))
-	models.CloseDb()
+	mux.HandleFunc("/", controller.Home)
+	mux.HandleFunc("/post/", controller.Post)
+	mux.HandleFunc("/login", controller.Login)
+	mux.HandleFunc("/new", authenticate(controller.NewPost))
+	mux.HandleFunc("/manage", authenticate(controller.Manage))
+	mux.HandleFunc("/edit/", authenticate(controller.EditPost))
+
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
+
+	err := http.ListenAndServe(conf.Host, mux)
+
+	log.Fatal(err)
 }
