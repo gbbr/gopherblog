@@ -1,0 +1,9 @@
+{{define "home"}}
+{{template "header" "GopherBlog"}}
+	<ul>
+		{{range .}}
+			<li><a href="/post/{{.Slug}}">{{.Title}}</a></li>
+		{{end}}
+	</ul>
+{{template "footer"}}
+{{end}}
