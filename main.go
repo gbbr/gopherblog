@@ -30,8 +30,7 @@ func main() {
 	mux.HandleFunc("/new", authenticate(controller.NewPost))
 	mux.HandleFunc("/manage", authenticate(controller.Manage))
 	mux.HandleFunc("/edit/", authenticate(controller.EditPost))
-
-	mux.Handle("/static/", http.FileServer(http.Dir("./")))
+	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	err := http.ListenAndServe(conf.Host, mux)
 
