@@ -30,7 +30,5 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, post := range posts {
-		fmt.Fprintf(w, "%+v\n\n", post)
-	}
+	tpl.ExecuteTemplate(w, "home", posts)
 }

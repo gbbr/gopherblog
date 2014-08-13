@@ -12,6 +12,7 @@ func init() {
 		"views/editPost.html",
 		"views/header.html",
 		"views/footer.html",
+		"views/home.html",
 	}
 
 	tpl = template.Must(template.ParseFiles(templates...))
