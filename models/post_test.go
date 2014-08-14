@@ -50,24 +50,14 @@ func TestPostsWithLimit(t *testing.T) {
 	// Test retrieval of all (considering there's under 100)
 	posts, err := Posts(100)
 	if len(posts) != 7 || err != nil {
-		if err != nil {
-			t.Log(err)
-		} else {
-			t.Logf("Expected %d posts, but got %d", 7, len(posts))
-		}
-
+		t.Log("Failed to retrieve all")
 		t.Fail()
 	}
 
 	// Test limited retrieval
 	posts, err = Posts(3)
 	if len(posts) != 3 || err != nil {
-		if err != nil {
-			t.Log(err)
-		} else {
-			t.Logf("Expected %d posts, but got %d", 3, len(posts))
-		}
-
+		t.Log("Failed to retrieve limited")
 		t.Fail()
 	}
 }
@@ -82,12 +72,7 @@ func TestPostsByUser(t *testing.T) {
 	if posts[0].Draft != true || posts[4].Slug != "slug-one" ||
 		len(posts) != 5 || err != nil {
 
-		if err != nil {
-			t.Log(err)
-		} else {
-			t.Log("Returned incorrect posts")
-		}
-
+		t.Log("Unexpected result")
 		t.Fail()
 	}
 }
