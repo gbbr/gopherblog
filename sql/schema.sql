@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `post_tags`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `post_tags` (
   `idPost` int(11) NOT NULL,
-  `idTag` int(11) NOT NULL,
-  PRIMARY KEY (`idPost`,`idTag`)
+  `tag` varchar(128) NOT NULL,
+  PRIMARY KEY (`idPost`,`tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -47,21 +47,7 @@ CREATE TABLE `posts` (
   PRIMARY KEY (`idPost`),
   KEY `slug` (`slug`),
   KEY `users` (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `tags`
---
-
-DROP TABLE IF EXISTS `tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tags` (
-  `idTag` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`idTag`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,4 +75,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-08-11 22:07:43
+-- Dump completed on 2014-08-14 18:54:07
