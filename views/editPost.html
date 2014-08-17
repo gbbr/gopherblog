@@ -1,10 +1,12 @@
 {{define "editPost"}}
 {{template "header" "Edit Post"}}
 <form method="POST">
-	<input type="text" name="title" value="{{.Title}}" />
-	<input type="text" name="slug" value="{{.Slug}}" />
-	<input type="checkbox" name="draft" {{if not .Draft}}checked="true"{{end}} />
-	<textarea name="body">{{.Body}}</textarea>
+	Title:<br>
+	<input type="text" name="title" value="{{.Title}}" /><br>
+	Slug<br>
+	<input type="text" name="slug" value="{{.Slug}}" /><br>
+	<input type="checkbox" name="draft" {{if not .Draft}}checked="true"{{end}} /> Published<br>
+	<textarea name="body">{{.Body}}</textarea><br>
 	<input type="submit" value="Save" />
 </form>
 {{template "footer"}}
