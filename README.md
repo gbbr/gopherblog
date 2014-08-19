@@ -13,7 +13,7 @@ To set up the database you need to run the following command:
 
 `chmod +x install.sh; ./install.sh`
 
-Follow the on-screen instructions and enter your database host, and credentials. The second section will ask you to create an admin username which you will use to create posts on the blog.
+Follow the on-screen instructions and enter your database host and credentials. The second section will ask you to create the Admin credentials and Display Name which you will use to create posts on the blog. The Display Name that you enter here will be displayed on your posts' pages.
 
 ### Running the blog
 
