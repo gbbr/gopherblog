@@ -5,7 +5,7 @@ My blog about Go, written in Go. Located at www.gopherblog.org
 The system assumes that you have successfully installed the following requirements:
 
 * A running version of [MySQL](http://dev.mysql.com/doc/refman/5.1/en/installing.html)
-* The [Go](https://golang.org/doc/install) language set-up, with correct environment variables (GOPATH, GOROOT, etc)
+* The [Go](https://golang.org/doc/install) language installed, with correct environment variables (GOPATH, GOROOT, etc)
 
 ### Setting up the database
 
