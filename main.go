@@ -1,25 +1,24 @@
 package main
 
 import (
+	"flag"
 	"github.com/gbbr/gopherblog/controllers"
 	"github.com/gbbr/gopherblog/models"
 	"log"
 	"net/http"
 )
 
-// Holds web server and database connection strings
-type Config struct {
-	Host     string
-	DbString string
-}
+// Command line flags
+var (
+	host     = flag.String("host", "localhost", "Hostname for HTTP server")
+	port     = flag.String("port", "8080", "Port for HTTP server")
+	dbString = flag.String("db", "root:root@tcp(localhost:3306)/gopherblog", "Database connection string, defaults to 'root:root@tcp(localhost:3306)/gopherblog'")
+)
 
 func main() {
-	conf := Config{
-		Host:     "mecca.local:8080",
-		DbString: "root:root@tcp(localhost:3306)/gopherblog",
-	}
+	flag.Parse()
 
-	models.ConnectDb(conf.DbString)
+	models.ConnectDb(*dbString)
 	defer models.CloseDb()
 
 	mux := http.NewServeMux()
@@ -30,9 +29,10 @@ func main() {
 	mux.HandleFunc("/new", authenticate(controller.NewPost))
 	mux.HandleFunc("/manage", authenticate(controller.Manage))
 	mux.HandleFunc("/edit/", authenticate(controller.EditPost))
+
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	err := http.ListenAndServe(conf.Host, mux)
+	err := http.ListenAndServe(*host+":"+*port, mux)
 
 	log.Fatal(err)
 }
