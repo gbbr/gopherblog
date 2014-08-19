@@ -19,7 +19,6 @@ type BlogTemplate struct {
 	files []string
 }
 
-// ExecuteTemplate wrapper, if -nocache flag is set, all templates are loaded on every request
 func (t *BlogTemplate) ExecuteTemplate(w http.ResponseWriter, name string, data interface{}) error {
 	if *noCache {
 		log.Printf("[%s] Recompiling templates.", name)
