@@ -35,7 +35,7 @@ The following command-line flags are provided:
 | `db`           | user:pass@tcp(localhost:3306)/gopherblog | Database connection information. Make sure you enter the same string, but containing your own username and password  |
 | `host`           | localhost | Hostname that the server runs on |
 | `port`           | 8080 | Port to listen on for HTTP connections |
-| `nocache`        | `false` | Setting this flag will recompile the HTML templates on every request |
+| `nocache`        |  | Setting this flag will recompile the HTML templates on every request |
 
 
 ### Navigating
