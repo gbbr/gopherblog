@@ -19,11 +19,11 @@ Follow the on-screen instructions and enter your database host and credentials. 
 
 First we must compile the main package and all its dependencies into a binary. To do this we run:
 
-`go build`
+`go install`
 
-This should create the binary called `gopherblog`. On my machine, for example, I naively run the blog as:
+This should create the binary called `gopherblog` in your $GOPATH/bin folder. On my machine, for example, I naively run the blog as:
 
-`./gopherblog -db="root:root@tcp(localhost:3306)/gopherblog"`
+`gopherblog -db="root:root@tcp(localhost:3306)/gopherblog"`
 
 The following command-line flags are provided:
 
