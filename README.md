@@ -1,8 +1,7 @@
 GopherBlog
 ==========
 
-My blog about Go, written in Go.  
-Located at www.gopherblog.org
+My blog about Go, written in Go. Located at www.gopherblog.org
 
 ### Requirements
 
