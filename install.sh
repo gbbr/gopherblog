@@ -43,7 +43,7 @@ echo
 echo "-------------"
 echo "USER CREATION"
 echo "-------------"
-echo -n "Name: "
+echo -n "Display Name: "
 read uName
 echo -n "E-mail: "
 read uMail
