@@ -43,10 +43,6 @@ func (t *BlogTemplates) ExecuteTemplate(w http.ResponseWriter, name string, data
 }
 
 func init() {
-	if *noCache {
-		log.Println("Running with no-cache...")
-	}
-
 	tpl = &BlogTemplates{
 		files:    files,
 		compiled: template.Must(template.ParseFiles(files...)),

@@ -10,12 +10,19 @@ import (
 
 // Displays the login form template. Interprets both GET and POST
 func Login(w http.ResponseWriter, r *http.Request) {
+	returnTo := r.URL.Query().Get("return")
+	if returnTo == "" {
+		returnTo = "/manage"
+	}
+
 	tplData := struct{ Msg, ReturnUrl string }{
-		ReturnUrl: r.URL.Query().Get("return"),
+		ReturnUrl: returnTo,
 	}
 
 	if r.Method == "POST" {
+		// this will redirect us if login succeeds
 		validateLoginForm(w, r)
+		// otherwise, display message
 		tplData.Msg = "Invalid login and password combination."
 	}
 

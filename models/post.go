@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	mysql "github.com/go-sql-driver/mysql"
+	"html/template"
 	"time"
 )
 
@@ -112,6 +113,11 @@ func (p *Post) Save() error {
 func (p *Post) FormattedDate() string {
 	year, month, day := p.Date.Date()
 	return fmt.Sprintf("%d %s %d", day, month, year)
+}
+
+// Returns the body of the post as safe HTML
+func (p *Post) BodyHTML() template.HTML {
+	return template.HTML(p.Body)
 }
 
 // Scans a fetched row and updates the structure
