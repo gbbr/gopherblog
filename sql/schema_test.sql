@@ -72,12 +72,12 @@ CREATE TABLE `users` (
 
 --
 -- Dumping data for table `users`
---
+-- password1, password
 
 LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` VALUES 
 (1,'Jeremy','jeremy@email.com','5f4dcc3b5aa765d61d8327deb882cf99'),
-(2,'Mathias','mathias@company.it','5f4dcc3b5aa765d61d8327deb882cf99');
+(2,'Mathias','mathias@company.it','7c6a180b36896a0a8c02787eeafb0e4c');
 
 UNLOCK TABLES;
