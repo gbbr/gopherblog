@@ -7,19 +7,11 @@ import (
 	"net/http"
 )
 
-// Templates
-var templates = []string{
-	"views/login.html",
-	"views/404.html",
-	"views/edit.html",
-	"views/editPost.html",
-	"views/header.html",
-	"views/footer.html",
-	"views/home.html",
-}
-
 // If flag is set, templates are reloaded on every refresh
 var noCache = flag.Bool("nocache", false, "Determines whether template caching should occur.")
+
+// Global template engine
+var tpl *BlogTemplates
 
 // Custom template wrapper
 type BlogTemplates struct {
@@ -37,15 +29,21 @@ func (t *BlogTemplates) ExecuteTemplate(w http.ResponseWriter, name string, data
 	return t.compiled.ExecuteTemplate(w, name, data)
 }
 
-var tpl *BlogTemplates
-
 func init() {
 	if *noCache {
 		log.Println("Running with no-cache...")
 	}
 
 	tpl = &BlogTemplates{
-		files:    templates,
+		files: []string{
+			"views/login.html",
+			"views/404.html",
+			"views/edit.html",
+			"views/editPost.html",
+			"views/header.html",
+			"views/footer.html",
+			"views/home.html",
+		},
 		compiled: template.Must(template.ParseFiles(templates...)),
 	}
 }
