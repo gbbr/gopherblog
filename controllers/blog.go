@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gbbr/gopherblog/models"
 	"net/http"
 )
@@ -18,7 +17,7 @@ func Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "%+v", post)
+	tpl.ExecuteTemplate(w, "post", post)
 }
 
 // Displays home page

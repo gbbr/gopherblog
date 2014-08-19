@@ -12,11 +12,12 @@ var (
 	files = []string{
 		"views/login.html",
 		"views/404.html",
-		"views/edit.html",
+		"views/manage.html",
 		"views/editPost.html",
 		"views/header.html",
 		"views/footer.html",
 		"views/home.html",
+		"views/post.html",
 	}
 
 	// If flag is set, templates are reloaded on every refresh
