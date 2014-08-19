@@ -1,0 +1,11 @@
+{{define "post"}}
+{{template "header" "Post"}}
+
+<h1>{{.Title}}</h1>
+<span>Posted by {{.Author.Name}} on {{.FormattedDate}}</span>
+<p>
+	{{.Body}}
+</p>
+
+{{template "footer"}}
+{{end}}
