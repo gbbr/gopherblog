@@ -76,3 +76,40 @@ func TestPostsByUser(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestFetch(t *testing.T) {
+	once.Do(setUp)
+
+	ConnectDb(testConfig.dbString)
+	defer CloseDb()
+
+	// Test fetch by slug
+	post := &Post{Slug: "slug-two"}
+	if err := post.Fetch(); err != nil {
+		t.Log("An error occurred while fetching post")
+		t.Fatal()
+	}
+
+	if post.Id != 12 || post.Title != "Title Two" {
+		t.Log("Did not retrieve correct post")
+		t.Fail()
+	}
+
+	// Test fetch by ID
+	post = &Post{Id: 20}
+	if err := post.Fetch(); err != nil {
+		t.Log("An error occurred while fetching post")
+		t.Fatal()
+	}
+
+	if post.Id != 20 || post.Title != "My Post Four" || post.Slug != "mypost-four" {
+		t.Log("Did not retrieve correct post")
+		t.Fail()
+	}
+
+	// Test if we fetched the correct author
+	if post.Author.Id != 2 || post.Author.Name != "Mathias" || post.Author.Email != "mathias@company.it" {
+		t.Log("Didn't fetch the right author")
+		t.Fail()
+	}
+}

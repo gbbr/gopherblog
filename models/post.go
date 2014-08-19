@@ -125,7 +125,7 @@ func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)
 	author := new(User)
 
-	err := data.Scan(&p.Slug, &p.Title, &p.Body, date, &author.Id, &author.Name, &author.Email, &p.Draft)
+	err := data.Scan(&p.Id, &p.Slug, &p.Title, &p.Body, date, &author.Id, &author.Name, &author.Email, &p.Draft)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Post not found")
 	}
