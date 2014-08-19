@@ -25,7 +25,11 @@ First we must compile the main package and all its dependencies into a binary. T
 
 `go build`
 
-This should create the binary called `gopherblog` for you which comes with the following flags:
+This should create the binary called `gopherblog`. On my machine, for example, I naively run the blog as:
+
+`./gopherblog -db="root:root@tcp(localhost:3306)/gopherblog"`
+
+The following command-line flags are provided:
 
 | Flag         | Default Value                              | Description                                     |
 | ------------- |:------------------------------------------|:------------------------------------------------|
@@ -34,11 +38,6 @@ This should create the binary called `gopherblog` for you which comes with the f
 | `port`           | 8080 | Port to listen on for HTTP connections |
 | `nocache`        | `false` | Setting this flag will recompile the HTML templates on every request |
 
-On my machine, for example, I run the blog as:
-
-`./gopherblog -db=root:root@tcp(localhost:3306)/gopherblog`
-
-My username and password is cleverly named `root` and `root`
 
 ### Navigating
 
