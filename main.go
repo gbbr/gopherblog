@@ -34,6 +34,7 @@ func main() {
 
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
+	log.Printf("Starting on %s:%s\n", *host, *port)
 	err := http.ListenAndServe(*host+":"+*port, mux)
 
 	log.Fatal(err)
