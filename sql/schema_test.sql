@@ -69,7 +69,19 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (11,'slug-one','Title One','Body of the post <strong>one</strong>',1,'2014-08-11 21:12:35',0),(12,'slug-two','Title Two','Body of the post <strong>two</strong>',1,'2014-08-11 21:13:00',0),(13,'slug-three','Title Three','Body of the post <strong>three</strong>',1,'2014-08-11 21:13:16',0),(14,'draft-one','Draft One','Body of the post <strong>draft-one</strong>',1,'2014-08-11 21:13:54',1),(15,'draft-two','Draft Two','Body of the post <strong>draft-two</strong>',1,'2014-08-11 21:14:08',1),(17,'mypost-one','My Post One','My post <em>one\'s</em> body',2,'2014-08-11 21:15:51',0),(18,'mypost-two','My Post Two','My post <em>two\'s</em> body',2,'2014-08-11 21:15:51',0),(19,'mypost-three','My Post Three','My post <em>three\'s</em> body',2,'2014-08-11 21:15:51',0),(20,'mypost-four','My Post Four','My post <em>four\'s</em> body',2,'2014-08-11 21:15:51',0),(21,'mypost-draft','My Draft Post','This is still a draft',2,'2014-08-11 21:15:52',1);
+
+INSERT INTO `posts` VALUES 
+(11,'slug-one','Title One','Body of the post <strong>one</strong>',1,'2014-08-11 21:12:35',0),
+(12,'slug-two','Title Two','Body of the post <strong>two</strong>',1,'2014-08-11 21:13:00',0),
+(13,'slug-three','Title Three','Body of the post <strong>three</strong>',1,'2014-08-11 21:13:16',0),
+(14,'draft-one','Draft One','Body of the post <strong>draft-one</strong>',1,'2014-08-11 21:13:54',1),
+(15,'draft-two','Draft Two','Body of the post <strong>draft-two</strong>',1,'2014-08-11 21:14:08',1),
+(17,'mypost-one','My Post One','My post <em>one\'s</em> body',2,'2014-08-11 21:15:51',0),
+(18,'mypost-two','My Post Two','My post <em>two\'s</em> body',2,'2014-08-11 21:15:51',0),
+(19,'mypost-three','My Post Three','My post <em>three\'s</em> body',2,'2014-08-11 21:15:51',0),
+(20,'mypost-four','My Post Four','My post <em>four\'s</em> body',2,'2014-08-11 21:15:51',0),
+(21,'mypost-draft','My Draft Post','This is still a draft',2,'2014-08-11 21:15:52',1);
+
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +130,11 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Jeremy','jeremy@email.com','5f4dcc3b5aa765d61d8327deb882cf99'),(2,'Mathias','mathias@company.it','5f4dcc3b5aa765d61d8327deb882cf99');
+
+INSERT INTO `users` VALUES 
+(1,'Jeremy','jeremy@email.com','5f4dcc3b5aa765d61d8327deb882cf99'),
+(2,'Mathias','mathias@company.it','5f4dcc3b5aa765d61d8327deb882cf99');
+
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
