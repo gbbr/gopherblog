@@ -8,11 +8,13 @@ import (
 	"net/http"
 )
 
-// Command line flags
+// Command line flags, HTTP hostname, port and
+// database connection string. DB String format is
+// user:pass@tcp(hostname:port)/database_name
 var (
 	host     = flag.String("host", "localhost", "Hostname for HTTP server")
 	port     = flag.String("port", "8080", "Port for HTTP server")
-	dbString = flag.String("db", "root:root@tcp(localhost:3306)/gopherblog", "Database connection string, defaults to 'root:root@tcp(localhost:3306)/gopherblog'")
+	dbString = flag.String("db", "root:root@tcp(localhost:3306)/gopherblog", "Database connection string")
 )
 
 func main() {
