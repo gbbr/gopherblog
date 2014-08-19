@@ -19,6 +19,9 @@
 -- Table structure for table `post_tags`
 --
 
+CREATE DATABASE IF NOT EXISTS gopherblog;
+USE gopherblog;
+
 DROP TABLE IF EXISTS `post_tags`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

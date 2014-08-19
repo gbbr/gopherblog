@@ -16,7 +16,7 @@ type Config struct {
 func main() {
 	conf := Config{
 		Host:     "mecca.local:8080",
-		DbString: "root:root@tcp(localhost:3306)/blog",
+		DbString: "root:root@tcp(localhost:3306)/gopherblog",
 	}
 
 	models.ConnectDb(conf.DbString)
