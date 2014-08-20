@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"sync"
 )
 
 // If flag is set, templates are reloaded on every refresh
@@ -17,11 +18,14 @@ var tpl *BlogTemplate
 type BlogTemplate struct {
 	*template.Template
 	files []string
+	mu *sync.Mutex
 }
 
 func (t *BlogTemplate) ExecuteTemplate(w http.ResponseWriter, name string, data interface{}) error {
 	if *noCache {
 		log.Printf("[%s] Recompiling templates.", name)
+		t.mu.Lock()
+		defer t.mu.Unlock()
 		t.Template = template.Must(template.ParseFiles(t.files...))
 	}
 
