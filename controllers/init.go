@@ -23,9 +23,9 @@ type BlogTemplate struct {
 
 func (t *BlogTemplate) ExecuteTemplate(w http.ResponseWriter, name string, data interface{}) error {
 	if *noCache {
-		log.Printf("[%s] Recompiling templates.", name)
 		t.mu.Lock()
 		defer t.mu.Unlock()
+		log.Printf("[%s] Recompiling templates.", name)
 		t.Template = template.Must(template.ParseFiles(t.files...))
 	}
 
