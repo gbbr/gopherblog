@@ -32,7 +32,7 @@ The following command-line flags are provided:
 | `-db=`           | root:root@tcp(localhost:3306)/gopherblog | Database connection string.   |
 | `-host=`           | localhost | Hostname that the server runs on |
 | `-port=`           | 8080 | Port to listen on for HTTP connections |
-| `-nocache`        |  | Setting this flag will recompile the HTML templates on every request |
+| `-nocache `        |  | Setting this flag will recompile the HTML templates on every request |
 
 
 ### Navigating
