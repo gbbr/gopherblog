@@ -39,8 +39,8 @@ The following command-line flags are provided:
 
 | Route         | Description                                     |
 | ------------- |:------------------------------------------------|
-| `/`           | Home page of the blog, displays a list of posts |
-| `/post/{slug}`| Displays a post with the given slug             |
-| `/login`      | Displays login page                             |
-| `/manage`     | Manage your posts (requires authentication)     |
-| `/edit/{id}`  | Edit a post with the given ID                   |
+| /           | Home page of the blog, displays a list of posts |
+| /post/:slug| Displays a post with the given slug             |
+| /login      | Displays login page                             |
+| /manage     | Manage your posts (requires authentication)     |
+| /edit/:id  | Edit a post with the given ID                   |
