@@ -29,10 +29,10 @@ The following command-line flags are provided:
 
 | Flag         | Default Value                              | Description                                     |
 | ------------- |:------------------------------------------|:------------------------------------------------|
-| `db`           | root:root@tcp(localhost:3306)/gopherblog | Database connection string.   |
-| `host`           | localhost | Hostname that the server runs on |
-| `port`           | 8080 | Port to listen on for HTTP connections |
-| `nocache`        |  | Setting this flag will recompile the HTML templates on every request |
+| `-db=`           | root:root@tcp(localhost:3306)/gopherblog | Database connection string.   |
+| `-host=`           | localhost | Hostname that the server runs on |
+| `-port=`           | 8080 | Port to listen on for HTTP connections |
+| `-nocache`        |  | Setting this flag will recompile the HTML templates on every request |
 
 
 ### Navigating
