@@ -1,0 +1,27 @@
+{
+  "name": "gopherblog",
+  "version": "0.0.1",
+  "homepage": "gopherblog.com",
+  "authors": [
+    "Gabriel Aszalos <ga@stripetree.co.uk>",
+    "Marcin Wieprzkowicz <marcin.wieprzkowicz@gmail.com>"
+  ],
+  "description": "Gopher blog",
+  "keywords": [
+    "Gopher",
+    "go",
+    "blog"
+  ],
+  "dependencies": {
+    "normalize-css": "2.1.3",
+    "html5shiv": "3.7.2"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

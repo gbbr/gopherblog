@@ -1,11 +1,24 @@
 {{define "post"}}
 {{template "header" "Post"}}
 
-<h1>{{.Title}}</h1>
-<span>Posted by {{.Author.Name}} on {{.FormattedDate}}</span>
-<p>
-	{{.BodyHTML}}
-</p>
+<div class="siteContent">
+	<article class="post">
+		<header class="entryHeader">
+			<h1 class="entryTitle">
+				<a href="/post/{{.Slug}}" title="{{.Title}}" rel="bookmark">{{.Title}}</a>
+			</h1>
+		</header>
+
+		<footer class="entryMeta">
+			<span>posted on <a href="/post/{{.Slug}}" title="{{.Date}}" rel="bookmark"><time datetime="{{.Date}}">{{.FormattedDate}}</time></a></span>
+			<span> by {{.Author.Name}}</a></span>
+		</footer>
+
+		<div class="entryContent">
+			<p>{{.BodyHTML}}</p>
+		</div>
+	</article>
+</div>
 
 {{template "footer"}}
 {{end}}
