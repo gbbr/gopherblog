@@ -12,7 +12,7 @@ go install github.com/gbbr/gopherblog/...
 
 ./install.sh
 
-# Run HTTP server on port 8080 (see below for more config flags)
+# Run HTTP server on localhost:8080
 
 gopherblog -db="user:pass@tcp(host:port)/gopherblog"
 ```
