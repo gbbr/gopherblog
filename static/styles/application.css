@@ -1,0 +1,102 @@
+body {
+  color: #444;
+  font-family: "Lora", Georgia, serif;
+  font-size: 10px;
+  line-height: 1.4; }
+
+a {
+  color: #333;
+  text-decoration: none; }
+
+ul, li {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+::selection {
+  background: #FF9;
+  color: #333;
+  text-shadow: none; }
+
+.mCont {
+  max-width: 1024px;
+  margin: 0 auto; }
+
+.sideContent a,
+.siteFooter a {
+  border-bottom: 1px dotted #ccc; }
+  .sideContent a:hover,
+  .siteFooter a:hover {
+    background-color: #f7f7f7;
+    color: #000; }
+
+.columns {
+  *zoom: 1; }
+  .columns:before, .columns:after {
+    content: " ";
+    display: table; }
+  .columns:after {
+    clear: both; }
+  .columns.twoThird .column {
+    margin-left: 6%;
+    width: 37%; }
+    .columns.twoThird .column:first-child {
+      margin-left: 0;
+      width: 57%; }
+  .columns .column {
+    float: left;
+    width: 50%; }
+
+.siteHeader {
+  padding-top: 3.6em;
+  padding-bottom: 4.8em; }
+  .siteHeader hgroup {
+    margin-bottom: 6em; }
+    .siteHeader hgroup h1 {
+      height: 170px;
+      margin: 0 auto;
+      width: 125px; }
+      .siteHeader hgroup h1 .logo {
+        background: url(/static/images/logo.png) no-repeat;
+        background-size: 125px 170px;
+        display: block;
+        height: 100%;
+        text-indent: -900em; }
+
+.mainNavigation {
+  border-style: solid;
+  border-width: 1px 0;
+  border-color: #eee;
+  text-align: center; }
+  .mainNavigation .siteMenu {
+    display: inline-block; }
+    .mainNavigation .siteMenu li {
+      color: #333;
+      display: inline-block;
+      font-family: "Coustard", Georgia, serif;
+      margin: 0 1.25em;
+      max-height: 1.5em;
+      font-size: 1.4em;
+      padding: 1em 0;
+      position: relative; }
+      .mainNavigation .siteMenu li.active a {
+        color: #9e3d34; }
+      .mainNavigation .siteMenu li a {
+        color: inherit;
+        display: inline-block;
+        line-height: 1.6em; }
+        .mainNavigation .siteMenu li a:hover {
+          border-bottom: 1px dotted #ccc; }
+
+#main-content {
+  padding-bottom: 6em; }
+
+.siteContent .post .entryHeader {
+  text-align: center; }
+
+.siteFooter {
+  border-top: 1px solid #eee;
+  color: #666;
+  font-size: 1.4em;
+  padding: 2em 0;
+  text-align: center; }

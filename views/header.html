@@ -2,7 +2,39 @@
 <html>
 <head>
 	<title>{{.}}</title>
-	<link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+	<meta charset="UTF-8">
+
+	<!--[if lt IE 9]>
+		<script src="/bower_components/html5shiv/dist/html5shiv.js"></script>
+	<![endif]-->
+
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Coustard&#038;subset=latin" />
+
+	<link rel="stylesheet" type="text/css" href="/bower_components/normalize-css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/application.css">
 </head>
 <body>
+	<div id="body-wrapper">
+		<header class="siteHeader mCont">
+			<hgroup>
+				<h1>
+					<a href="/" rel="home" class="logo">Gopher Blog</a>
+				</h1>
+			</hgroup>
+
+			<nav class="mainNavigation" role="navigation">
+				<ul class="siteMenu">
+					<li class="active">
+						<a href="#">Articles</a>
+					</li>
+					<li>
+						<a href="#">About</a>
+					</li>
+					<li>
+						<a href="#">Contact</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 {{end}}

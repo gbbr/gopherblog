@@ -30,6 +30,7 @@ func main() {
 	mux.HandleFunc("/edit/", authenticate(controller.EditPost))
 
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	mux.Handle("/bower_components/", http.StripPrefix("/bower_components/", http.FileServer(http.Dir("bower_components"))))
 
 	log.Printf("Starting on %s:%s\n", *host, *port)
 	err := http.ListenAndServe(*host+":"+*port, mux)

@@ -1,9 +1,28 @@
 {{define "home"}}
 {{template "header" "GopherBlog"}}
-	<ul>
+
+<section id="main-content" class="mCont columns twoThird">
+	<div class="siteContent column">
 		{{range .}}
-			<li><a href="/post/{{.Slug}}">{{.Title}}</a> by {{.Author.Name}}, posted on {{.FormattedDate}}</li>
+			<article class="post">
+				<header class="entryHeader">
+					<h1 class="entryTitle">
+						<a href="/post/{{.Slug}}" title="{{.Title}}" rel="bookmark">{{.Title}}</a>
+					</h1>
+					by {{.Author.Name}}, posted on {{.FormattedDate}}
+				</header>
+
+				<div class="entryContent">
+					<p>Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi. Aliquam erat ac ipsum.</p>
+				</div>
+			</article> <!-- /post -->
 		{{end}}
-	</ul>
+	</div> <!-- /primary -->
+
+	<div class="widgetArea column">
+		widgetarea
+	</div> <!-- /secondary -->
+</section> <!-- /main -->
+
 {{template "footer"}}
 {{end}}
