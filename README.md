@@ -7,7 +7,7 @@ go get github.com/gbbr/gopherblog/...
 go install github.com/gbbr/gopherblog/...
 
 ./install.sh
-gopherblog -db="db_user:db_pass@tcp(host:port)/gopherblog"
+gopherblog -db="user:pass@tcp(host:port)/gopherblog"
 ```
 
 ### Requirements
