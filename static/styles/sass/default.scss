@@ -10,10 +10,16 @@ a {
 	text-decoration: none;
 }
 
-ul, li {
+ul, li, form, fieldset {
+	border: none;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Coustard", Georgia, serif;
+	margin: 0.8em 0 0.4em 0;
 }
 
 ::selection {
@@ -22,16 +28,52 @@ ul, li {
 	text-shadow: none;
 }
 
+input[type="search"],
+input[type="text"],
+input[type="password"],
+textarea {
+	border: 1px solid #ddd;
+	color: #444;
+	font-size: 1.4em;
+	padding: 0.7em;
+	max-width: 100%;
+	width: 260px;
+	-webkit-appearance: none;
+	-webkit-tap-highlight-color: transparent;
+	@include box-sizing(border-box);
+	&:focus {
+		border-color: #aaa;
+		outline: 0;
+	}
+}
+
+textarea {
+	height: 500px;
+	width: 100%;
+}
+
 .mCont {
 	max-width: 1024px;
 	margin: 0 auto;
 }
 
-.sideContent a,
+// links with border, hover with background
+.entryMeta a,
+.entryContent a,
 .siteFooter a {
 	border-bottom: 1px dotted #ccc;
 	&:hover {
 		background-color: #f7f7f7;
+		color: #000;
+	}
+}
+
+// links without border, hover with background
+.entryTitle a,
+.widget a {
+	&:hover {
+		background-color: #f7f7f7;
+		border-bottom: 1px dotted #ccc;
 		color: #000;
 	}
 }

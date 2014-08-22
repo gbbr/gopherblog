@@ -1,5 +1,6 @@
 {{define "editPost"}}
 {{template "header" "Edit Post"}}
+
 <form method="POST">
 	Title:<br>
 	<input type="text" name="title" value="{{.Title}}" /><br>
@@ -9,5 +10,6 @@
 	<textarea name="body">{{.Body}}</textarea><br>
 	<input type="submit" value="Save" />
 </form>
+
 {{template "footer"}}
 {{end}}

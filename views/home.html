@@ -1,7 +1,7 @@
 {{define "home"}}
 {{template "header" "GopherBlog"}}
 
-<section id="main-content" class="mCont columns twoThird">
+<div class="columns twoThird">
 	<div class="siteContent column">
 		{{range .}}
 			<article class="post">
@@ -9,20 +9,64 @@
 					<h1 class="entryTitle">
 						<a href="/post/{{.Slug}}" title="{{.Title}}" rel="bookmark">{{.Title}}</a>
 					</h1>
-					by {{.Author.Name}}, posted on {{.FormattedDate}}
 				</header>
 
+				<footer class="entryMeta">
+					<span>posted on <a href="/post/{{.Slug}}" title="{{.Date}}" rel="bookmark"><time datetime="{{.Date}}">{{.FormattedDate}}</time></a></span>
+					<span> by {{.Author.Name}}</a></span>
+				</footer>
+
 				<div class="entryContent">
-					<p>Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi. Aliquam erat ac ipsum.</p>
+					<p>Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum adipiscing wisi. Aliquam erat ac ipsum.
+
+					<a href="/post/{{.Slug}}" title="{{.Title}}" class="moreLink">Continue reading <span class="meta-nav">→</span></a></p>
 				</div>
 			</article> <!-- /post -->
 		{{end}}
 	</div> <!-- /primary -->
 
 	<div class="widgetArea column">
-		widgetarea
+		<aside class="widget">
+			<h3 class="widgetTitle">Search</h3>
+			<form action="#" method="get" role="search">
+				<fieldset>
+					<input type="search" required="required" name="query" placeholder="Enter keyword..." />
+				</fieldset>
+			</form>
+		</aside> <!-- /widget -->
+
+		<aside class="widget">
+			<h3 class="widgetTitle">Useful Links</h3>
+			<ul class="links">
+				<li>
+					<a target="_blank" href="http://golang.org/">Official website</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://golang.org/doc/effective_go.html">Effective Go</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://blog.golang.org/">The Go Blog</a>
+				</li>
+				<li>
+					<a target="_blank" href="https://twitter.com/golang">Go on Twitter</a>
+				</li>
+			</ul>
+		</aside>
+
+		<aside class="widget">
+			<h3 class="widgetTitle">Tags</h3>
+			<ul class="tags">
+				<li>
+					<a href="#" title="Beginner">Beginner</a>
+				</li>
+				<li>
+					<a href="#" title="Go">Go</a>
+				</li>
+			</ul>
+		</aside>
+
 	</div> <!-- /secondary -->
-</section> <!-- /main -->
+</div> <!-- /columns -->
 
 {{template "footer"}}
 {{end}}
