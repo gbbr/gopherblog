@@ -1,5 +1,15 @@
 My blog about Go, written in Go. Located at www.gopherblog.org
 
+### TL;DR
+
+```
+go get github.com/gbbr/gopherblog/...
+go install github.com/gbbr/gopherblog/...
+
+./install.sh
+gopherblog -db="db_user:db_pass@tcp(host:port)/gopherblog"
+```
+
 ### Requirements
 
 The system assumes that you have successfully installed the following requirements:
