@@ -7,6 +7,8 @@ The system assumes that you have successfully installed the following requiremen
 * A running version of [MySQL](http://dev.mysql.com/doc/refman/5.1/en/installing.html)
 * The [Go](https://golang.org/doc/install) language installed, with correct environment variables (GOPATH, GOROOT, etc)
 
+After all of the above are installed, do `go get github.com/gbbr/gopherblog/...` to install the blog and its dependencies.
+
 ### Setting up the database
 
 To set up the database you need to run the following command:
@@ -17,7 +19,7 @@ Follow the on-screen instructions and enter your database host and credentials. 
 
 ### Running the blog
 
-First we must compile the main package and all its dependencies into a binary. To do this we run:
+First we must compile the main package and all its dependencies into a binary. To do this we run (in the gopherblog directory):
 
 `go install`
 
