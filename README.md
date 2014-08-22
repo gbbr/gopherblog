@@ -4,16 +4,13 @@ My blog about Go, written in Go. Located at www.gopherblog.org
 
 ```
 # Fetch code and install binary
-
 go get github.com/gbbr/gopherblog/...
 go install github.com/gbbr/gopherblog/...
 
 # Set up database and admin user
-
 ./install.sh
 
 # Run HTTP server on localhost:8080
-
 gopherblog -db="user:pass@tcp(host:port)/gopherblog"
 ```
 
