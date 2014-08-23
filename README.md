@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gbbr/gopherblog.svg?branch=master)](https://travis-ci.org/gbbr/gopherblog)  
+# Gopherblog [![Build Status](https://travis-ci.org/gbbr/gopherblog.svg?branch=master)](https://travis-ci.org/gbbr/gopherblog)  
 
 My blog about Go, written in Go. Located at www.gopherblog.org 
 
