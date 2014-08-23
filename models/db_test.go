@@ -16,8 +16,8 @@ var (
 	}{
 		schemaFile: "../sql/schema_test.sql",
 		user:       "root",
-		pass:       "root",
-		dbString:   "root:root@tcp(localhost:3306)/blog_test",
+		pass:       "",
+		dbString:   "root@tcp(localhost:3306)/blog_test",
 	}
 
 	// Sync helper to run function only once

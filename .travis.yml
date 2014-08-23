@@ -3,7 +3,7 @@ language: go
 go:
   - 1.3
 
-script: go test ./...
+script: go test ./... -v
 
 before_script:
   - mysql -e 'create database blog_test;'
