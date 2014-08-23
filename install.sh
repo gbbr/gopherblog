@@ -11,7 +11,7 @@ echo -n "Host (localhost): "
 read host
 echo -n "Username (root): "
 read dbUser
-echo -n "Password (): "
+echo -n "Password (default empty): "
 read dbPass
 
 # Default host
