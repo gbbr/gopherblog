@@ -37,13 +37,13 @@ func isValidRequest(r *http.Request) (*models.User, bool) {
 	// Can we extract an integer?
 	uid, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return new(models.User), false
+		return nil, false
 	}
 
 	// Is there an author with that ID?
 	user := &models.User{Id: uid}
 	if err := user.Fetch(); err != nil {
-		return new(models.User), false
+		return nil, false
 	}
 
 	remoteIp := strings.Split(r.RemoteAddr, ":")[0]
@@ -52,7 +52,7 @@ func isValidRequest(r *http.Request) (*models.User, bool) {
 
 	// Does the hash match the origin?
 	if parts[1] != hash {
-		return new(models.User), false
+		return nil, false
 	}
 
 	return user, true
