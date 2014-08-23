@@ -7,12 +7,9 @@
 echo "--------------"
 echo "DATABASE SETUP"
 echo "--------------"
-echo -n "Host (localhost): "
-read host
-echo -n "Username (root): "
-read dbUser
-echo -n "Password (default empty): "
-read dbPass
+echo -n "Host (localhost): "; read host
+echo -n "Username (root): "; read dbUser
+echo -n "Password (default empty): "; read dbPass
 
 # Default host
 if [ -z "$host" ]
@@ -43,12 +40,9 @@ echo
 echo "-------------"
 echo "USER CREATION"
 echo "-------------"
-echo -n "Display Name: "
-read uName
-echo -n "E-mail: "
-read uMail
-echo -n "Password: "
-read -s uPass
+echo -n "Display Name: "; read uName
+echo -n "E-mail: "; read uMail
+echo -n "Password: "; read -s uPass
 
 hash="$(echo -n "$uPass" | md5 )"
 echo -n "Creating user..."
