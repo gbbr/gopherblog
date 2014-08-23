@@ -7,3 +7,4 @@ script: go test ./...
 
 before_script:
   - mysql -e 'create database blog_test;'
+
