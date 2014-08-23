@@ -11,7 +11,7 @@ echo -n "Host (localhost): "
 read host
 echo -n "Username (root): "
 read dbUser
-echo -n "Password (root): "
+echo -n "Password (): "
 read dbPass
 
 # Default host
@@ -29,7 +29,7 @@ fi
 # Default DB Pass
 if [ -z "$dbPass" ]
 then
-  dbPass="root"
+  dbPass=""
 fi
 
 db="mysql --host="$host" --user="$dbUser" --password="$dbPass
