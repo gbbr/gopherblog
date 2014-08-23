@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gbbr/gopherblog/models"
 	"net/http"
+	"strings"
 )
 
 // Displays the login form template. Interprets both GET and POST
@@ -40,7 +41,8 @@ func validateLoginForm(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if user.LoginCorrect() {
-		origin := []byte(string(user.Email) + r.RemoteAddr + r.UserAgent())
+		remoteIp := strings.Split(r.RemoteAddr, ":")[0]
+		origin := []byte(string(user.Email) + remoteIp + r.UserAgent())
 		val := fmt.Sprintf("%d:%x", user.Id, sha256.Sum256(origin))
 		http.SetCookie(w, &http.Cookie{
 			Name:  "auth",

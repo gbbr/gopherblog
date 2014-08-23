@@ -23,12 +23,6 @@ then
   dbUser="root"
 fi
 
-# Default DB Pass
-if [ -z "$dbPass" ]
-then
-  dbPass=""
-fi
-
 db="mysql --host="$host" --user="$dbUser" --password="$dbPass
 
 echo -n "Setting up database... "

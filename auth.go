@@ -46,7 +46,8 @@ func isValidRequest(r *http.Request) (*models.User, bool) {
 		return new(models.User), false
 	}
 
-	origin := []byte(string(user.Email) + r.RemoteAddr + r.UserAgent())
+	remoteIp := strings.Split(r.RemoteAddr, ":")[0]
+	origin := []byte(string(user.Email) + remoteIp + r.UserAgent())
 	hash := fmt.Sprintf("%x", sha256.Sum256(origin))
 
 	// Does the hash match the origin?
