@@ -18,7 +18,7 @@ var tpl *BlogTemplate
 type BlogTemplate struct {
 	*template.Template
 	files []string
-	mu    *sync.Mutex
+	mu    sync.Mutex
 }
 
 func (t *BlogTemplate) ExecuteTemplate(w http.ResponseWriter, name string, data interface{}) error {

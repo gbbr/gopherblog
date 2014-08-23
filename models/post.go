@@ -123,14 +123,12 @@ func (p *Post) BodyHTML() template.HTML {
 // Scans a fetched row and updates the structure
 func (p *Post) update(data *sql.Row) error {
 	date := new(mysql.NullTime)
-	author := new(User)
 
-	err := data.Scan(&p.Id, &p.Slug, &p.Title, &p.Body, date, &author.Id, &author.Name, &author.Email, &p.Draft)
+	err := data.Scan(&p.Id, &p.Slug, &p.Title, &p.Body, date, &p.Author.Id, &p.Author.Name, &p.Author.Email, &p.Draft)
 	if err == sql.ErrNoRows || err != nil {
 		return errors.New("Post not found")
 	}
 
-	p.Author = *author
 	if date.Valid {
 		p.Date = date.Time
 	}
