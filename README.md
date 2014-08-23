@@ -11,7 +11,7 @@ go install github.com/gbbr/gopherblog/...
 ./install.sh
 
 # Run HTTP server on localhost:8080
-gopherblog -db="user:pass@tcp(host:port)/gopherblog"
+gopherblog -db="user[:pass]@tcp(host:port)/gopherblog"
 ```
 
 ### Requirements
