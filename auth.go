@@ -30,7 +30,7 @@ func isValidRequest(r *http.Request) (*models.User, bool) {
 	// Does authentication cookie exist?
 	c, err := r.Cookie("auth")
 	if err != nil || err == http.ErrNoCookie {
-		return new(models.User), false
+		return nil, false
 	}
 
 	parts := strings.Split(c.Value, ":")
