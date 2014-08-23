@@ -11,7 +11,7 @@ import (
 var (
 	host     = flag.String("host", "localhost", "Hostname for HTTP server")
 	port     = flag.String("port", "8080", "Port for HTTP server")
-	dbString = flag.String("db", "root:root@tcp(localhost:3306)/gopherblog", "Database connection string")
+	dbString = flag.String("db", "root@tcp(localhost:3306)/gopherblog", "Database connection string")
 )
 
 func main() {
