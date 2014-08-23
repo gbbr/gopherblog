@@ -11,6 +11,7 @@ go install github.com/gbbr/gopherblog/...
 
 # Set up database and admin user
 ./install.sh
+bower install
 
 # Run HTTP server on localhost:8080
 gopherblog -db="user[:pass]@tcp(host:port)/gopherblog"
@@ -47,7 +48,7 @@ The following command-line flags are provided:
 
 | Flag         | Default Value                              | Description                                     |
 | ------------- |:------------------------------------------|:------------------------------------------------|
-|-db=           | root:root@tcp(localhost:3306)/gopherblog | Database connection string.   |
+|-db=           | root@tcp(localhost:3306)/gopherblog | Database connection string.   |
 |-host=           | localhost | Hostname that the server runs on |
 |-port=           | 8080 | Port to listen on for HTTP connections |
 |nocache        |  | Setting this flag will recompile the HTML templates on every request |
