@@ -1,3 +1,18 @@
+/*
+Package dbtest assists with creating and managing
+a database destined for testing.
+
+Usage
+
+To use this package, call SetUp from within your test and potentially set up
+the SchemaFile path if it differs from the default one. Example set-up with custom
+schema file:
+
+	dbtest.TestConfig.SchemaFile = "testsql/schema.sql"
+	dbtest.SetUp()
+
+	models.ConnectDb(dbtest.TestConfig.DbString)
+*/
 package dbtest
 
 import (
@@ -11,8 +26,8 @@ var (
 	// Test configuration, db connections, schema files
 	TestConfig = struct {
 		SchemaFile string
-		user, pass string
 		DbString   string
+		user, pass string
 	}{
 		SchemaFile: "../dbtest/schema.sql",
 		user:       "root",
@@ -24,11 +39,12 @@ var (
 	once sync.Once
 )
 
+// Sets up a test database with data found in the defined schema file.
+// Configuration can be altered by changing the TestConfig object.
 func SetUp() {
 	once.Do(setUpTestDB)
 }
 
-// Sets up test DB from schema file
 func setUpTestDB() {
 	file, err := os.Open(TestConfig.SchemaFile)
 	if err != nil {
