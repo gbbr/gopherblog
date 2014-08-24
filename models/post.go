@@ -6,6 +6,7 @@ import (
 	"fmt"
 	mysql "github.com/go-sql-driver/mysql"
 	"html/template"
+	"strings"
 	"time"
 )
 
@@ -15,6 +16,7 @@ type Post struct {
 	Author            User
 	Date              time.Time
 	Draft             bool
+	Tags              []string
 }
 
 // Fetches number of posts from the database ordered by date
@@ -75,20 +77,53 @@ func PostsByUser(u *User) (posts []Post, err error) {
 // Fetches one post from the database based on ID
 // or slug
 func (p *Post) Fetch() error {
-	var data *sql.Row
+	var (
+		rows *sql.Rows
+		err  error
+	)
 
 	switch {
 	case p.Id != 0:
-		data = db.QueryRow(SQL_POST_BY_ID, p.Id)
+		rows, err = db.Query(SQL_POST_BY_ID, p.Id)
 	case p.Slug != "":
-		data = db.QueryRow(SQL_POST_BY_SLUG, p.Slug)
+		rows, err = db.Query(SQL_POST_BY_SLUG, p.Slug)
 	default:
 		return errors.New("Must provide ID or slug for fetching")
 	}
 
-	err := p.update(data)
+	if err != nil {
+		return err
+	}
+
+	err = p.update(rows)
 	if err != nil {
 		return errors.New("Error scanning row")
+	}
+
+	rows.Close()
+	return nil
+}
+
+// Scans a fetched row and updates the structure
+func (p *Post) update(rows *sql.Rows) error {
+	tag := new(sql.NullString)
+	date := new(mysql.NullTime)
+
+	for rows.Next() {
+		err := rows.Scan(&p.Id, &p.Slug, &p.Title, &p.Body, date, &p.Author.Id, &p.Author.Name, &p.Author.Email, &p.Draft, tag)
+		if err != nil {
+			return err
+		}
+
+		if date.Valid {
+			p.Date = date.Time
+		}
+
+		if tag.Valid {
+			p.Tags = append(p.Tags, tag.String)
+		} else {
+			break
+		}
 	}
 
 	return nil
@@ -96,17 +131,63 @@ func (p *Post) Fetch() error {
 
 // Saves a post to the database. If it has a set ID it will try to
 // update an already existing post, otherwise it will insert a new post
-// and generate an ID for it
+// and generate an ID for it. An unset ID is an ID of value 0.
 func (p *Post) Save() error {
-	var err error
+	var (
+		err    error
+		result sql.Result
+	)
 
-	if p.Id == 0 {
-		_, err = db.Exec(SQL_INSERT_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft)
-	} else {
-		_, err = db.Exec(SQL_UPDATE_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft, p.Id)
+	tx, err := db.Begin()
+	if err != nil {
+		return err
 	}
 
-	return err
+	if p.Id == 0 {
+		result, err = tx.Exec(SQL_INSERT_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft)
+		if err != nil {
+			tx.Rollback()
+			return err
+		}
+
+		var id64 int64
+		id64, err = result.LastInsertId()
+		p.Id = int(id64)
+	} else {
+		result, err = tx.Exec(SQL_UPDATE_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft, p.Id)
+	}
+
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	_, err = tx.Exec(SQL_REMOVE_TAGS, p.Id)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	if len(p.Tags) > 0 {
+		stmt, err := tx.Prepare(SQL_INSERT_TAGS)
+		if err != nil {
+			tx.Rollback()
+			return err
+		}
+
+		for _, tag := range p.Tags {
+			if len(strings.Trim(tag, " ")) > 0 {
+				_, err = stmt.Exec(p.Id, tag)
+				if err != nil {
+					tx.Rollback()
+					return err
+				}
+			}
+		}
+	}
+
+	tx.Commit()
+	return nil
 }
 
 // Returns the formatted date as a string
@@ -115,23 +196,6 @@ func (p *Post) FormattedDate() string {
 	return fmt.Sprintf("%d %s %d", day, month, year)
 }
 
-// Returns the body of the post as safe HTML
-func (p *Post) BodyHTML() template.HTML {
-	return template.HTML(p.Body)
-}
-
-// Scans a fetched row and updates the structure
-func (p *Post) update(data *sql.Row) error {
-	date := new(mysql.NullTime)
-
-	err := data.Scan(&p.Id, &p.Slug, &p.Title, &p.Body, date, &p.Author.Id, &p.Author.Name, &p.Author.Email, &p.Draft)
-	if err == sql.ErrNoRows || err != nil {
-		return errors.New("Post not found")
-	}
-
-	if date.Valid {
-		p.Date = date.Time
-	}
-
-	return nil
-}
+// Template helpers
+func (p *Post) BodyHTML() template.HTML { return template.HTML(p.Body) }
+func (p *Post) TagsString() string      { return strings.Join(p.Tags, ", ") }

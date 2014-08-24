@@ -28,7 +28,8 @@ DROP TABLE IF EXISTS `post_tags`;
 CREATE TABLE `post_tags` (
   `idPost` int(11) NOT NULL,
   `tag` varchar(128) NOT NULL,
-  PRIMARY KEY (`idPost`,`tag`)
+  PRIMARY KEY (`idPost`,`tag`),
+  UNIQUE INDEX (`idPost`, `tag`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

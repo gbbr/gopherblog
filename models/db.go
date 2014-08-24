@@ -10,13 +10,15 @@ var db *sql.DB
 
 const (
 	SQL_POST_BY_ID = `
-		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft
+		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft, tag
 		FROM posts 
+		LEFT JOIN post_tags USING(idPost) 
 		INNER JOIN users USING(idUser)
 		WHERE idPost=?`
 	SQL_POST_BY_SLUG = `
-		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft
+		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft, tag 
 		FROM posts 
+		LEFT JOIN post_tags USING(idPost)
 		INNER JOIN users USING(idUser)
 		WHERE slug=?`
 	SQL_POSTS_BY_USER = `
@@ -30,9 +32,14 @@ const (
 		INNER JOIN users USING(idUser)
 		WHERE draft=false
 		ORDER BY date DESC LIMIT ?`
+
 	SQL_INSERT_POST = `
 		INSERT INTO posts (slug, title, body, idUser, draft)
 		VALUES (?, ?, ?, ?, ?)`
+	SQL_INSERT_TAGS = `
+		INSERT IGNORE INTO post_tags (idPost, tag)
+		VALUES (?, ?)`
+	SQL_REMOVE_TAGS = `DELETE from post_tags WHERE idPost=?`
 	SQL_UPDATE_POST = `
 		UPDATE posts SET slug=?, title=?, body=?, idUser=?, draft=?
 		WHERE idPost=?`

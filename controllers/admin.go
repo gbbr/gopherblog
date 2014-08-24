@@ -11,16 +11,7 @@ import (
 func NewPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 	switch r.Method {
 	case "POST":
-		keys := r.FormValue
-		post := &models.Post{
-			Slug:   keys("slug"),
-			Title:  keys("title"),
-			Body:   strings.Trim(keys("body"), " \t\r\n"),
-			Author: *u,
-			Draft:  keys("draft") != "on",
-		}
-
-		post.Save() //todo: handle err
+		savePost(0, r.FormValue, u) // todo: handle error
 		http.Redirect(w, r, "/manage", http.StatusFound)
 
 	case "GET":
@@ -48,17 +39,7 @@ func EditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 
 	switch r.Method {
 	case "POST":
-		keys := r.FormValue
-		post := &models.Post{
-			Id:     pId,
-			Slug:   keys("slug"),
-			Title:  keys("title"),
-			Body:   strings.Trim(keys("body"), " \t\r\n"),
-			Author: *u,
-			Draft:  keys("draft") != "on",
-		}
-
-		post.Save() //todo: handle err
+		savePost(pId, r.FormValue, u) // todo: handle error
 		http.Redirect(w, r, "/manage", http.StatusFound)
 
 	case "GET":
@@ -72,4 +53,26 @@ func EditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 
 		tpl.ExecuteTemplate(w, "editPost", post)
 	}
+}
+
+// Saves a post extracted from a form value function
+// if ID is 0 the post will be inserted
+func savePost(id int, keys func(string) string, u *models.User) error {
+	var tags []string
+
+	for _, tag := range strings.Split(keys("tags"), ",") {
+		tags = append(tags, strings.Trim(tag, " "))
+	}
+
+	post := &models.Post{
+		Id:     id,
+		Slug:   keys("slug"),
+		Title:  keys("title"),
+		Body:   strings.Trim(keys("body"), " \t\r\n"),
+		Author: *u,
+		Draft:  keys("draft") != "on",
+		Tags:   tags,
+	}
+
+	return post.Save()
 }
