@@ -11,7 +11,12 @@ import (
 func NewPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 	switch r.Method {
 	case "POST":
-		savePost(0, r.FormValue, u) // todo: handle error
+		err := savePost(0, r.FormValue, u)
+		if err != nil {
+			tpl.ExecuteTemplate(w, "404", nil)
+			return
+		}
+
 		http.Redirect(w, r, "/manage", http.StatusFound)
 
 	case "GET":
@@ -25,7 +30,12 @@ func Manage(w http.ResponseWriter, r *http.Request, u *models.User) {
 		http.Redirect(w, r, "/login?return="+r.URL.Path, http.StatusFound)
 	}
 
-	up, _ := models.PostsByUser(u) //todo: handle err
+	up, err := models.PostsByUser(u)
+	if err != nil {
+		tpl.ExecuteTemplate(w, "404", nil)
+		return
+	}
+
 	tpl.ExecuteTemplate(w, "manage", up)
 }
 
@@ -39,7 +49,12 @@ func EditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 
 	switch r.Method {
 	case "POST":
-		savePost(pId, r.FormValue, u) // todo: handle error
+		err = savePost(pId, r.FormValue, u)
+		if err != nil {
+			tpl.ExecuteTemplate(w, "404", nil)
+			return
+		}
+
 		http.Redirect(w, r, "/manage", http.StatusFound)
 
 	case "GET":
