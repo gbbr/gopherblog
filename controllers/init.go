@@ -1,3 +1,4 @@
+/*This package holds the HTTP handlers and the templating engine.*/
 package controller
 
 import (

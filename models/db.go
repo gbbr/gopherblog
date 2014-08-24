@@ -1,3 +1,7 @@
+/*
+This package contains the blog's models and holds the database connection globally but as
+an unexported value.
+*/
 package models
 
 import (
