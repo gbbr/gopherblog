@@ -94,11 +94,9 @@ func TestAuthenticateRoute(t *testing.T) {
 	defer models.CloseDb()
 
 	handlerCalled := false
-	dummyHandler := authHandler(func(w http.ResponseWriter, r *http.Request, u *models.User) {
+	returnedHandler := authenticate(func(w http.ResponseWriter, r *http.Request, u *models.User) {
 		handlerCalled = true
 	})
-
-	returnedHandler := authenticate(dummyHandler)
 
 	// Valid request
 	req, err := getTestRequest(true)
