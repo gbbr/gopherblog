@@ -4,12 +4,14 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/gbbr/gopherblog/dbtest"
 )
 
 func TestPostsWithLimit(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	// Test retrieval of all (considering there's under 100)
@@ -28,9 +30,9 @@ func TestPostsWithLimit(t *testing.T) {
 }
 
 func TestPostsByUser(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	posts, err := PostsByUser(&User{Id: 1})
@@ -43,9 +45,9 @@ func TestPostsByUser(t *testing.T) {
 }
 
 func TestPostFetch(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	// Test fetch by slug
@@ -80,9 +82,9 @@ func TestPostFetch(t *testing.T) {
 }
 
 func TestPostSaveNew(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	timeCompromise := time.Now()
@@ -119,9 +121,9 @@ func TestPostSaveNew(t *testing.T) {
 }
 
 func TestPostUpdate(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	original := &Post{Id: 11}
@@ -165,9 +167,9 @@ func TestPostUpdate(t *testing.T) {
 }
 
 func TestPostDelete(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	original := &Post{Id: 11}

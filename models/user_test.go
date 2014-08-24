@@ -1,9 +1,13 @@
 package models
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gbbr/gopherblog/dbtest"
+)
 
 func TestUserFetch(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
 	testCases := []struct {
 		Id              int
@@ -13,7 +17,7 @@ func TestUserFetch(t *testing.T) {
 		{1, "Jeremy", "jeremy@email.com"},
 	}
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	for _, test := range testCases {
@@ -31,7 +35,7 @@ func TestUserFetch(t *testing.T) {
 }
 
 func TestUserLoginCorrect(t *testing.T) {
-	once.Do(setUp)
+	dbtest.SetUp()
 
 	testCases := []struct {
 		login, pass string
@@ -40,7 +44,7 @@ func TestUserLoginCorrect(t *testing.T) {
 		{"mathias@company.it", "7c6a180b36896a0a8c02787eeafb0e4c"},
 	}
 
-	ConnectDb(testConfig.dbString)
+	ConnectDb(dbtest.TestConfig.DbString)
 	defer CloseDb()
 
 	for _, test := range testCases {
