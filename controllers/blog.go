@@ -29,5 +29,17 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tpl.ExecuteTemplate(w, "home", posts)
+	tags, err := models.TagsAll()
+	if err != nil {
+		tpl.ExecuteTemplate(w, "404", nil)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "home", struct {
+		Posts []models.Post
+		Tags  []string
+	}{
+		posts,
+		tags,
+	})
 }

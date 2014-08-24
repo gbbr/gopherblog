@@ -3,7 +3,7 @@
 
 <div class="columns twoThird">
 	<div class="siteContent column">
-		{{range .}}
+		{{range .Posts}}
 			<article class="post">
 				<header class="entryHeader">
 					<h1 class="entryTitle">
@@ -53,17 +53,18 @@
 			</ul>
 		</aside>
 
+		{{if .Tags}}
 		<aside class="widget">
 			<h3 class="widgetTitle">Tags</h3>
 			<ul class="tags">
+				{{range .Tags}}
 				<li>
-					<a href="#" title="Beginner">Beginner</a>
+					<a href="/tag/{{.}}" title="{{.}}">{{.}}</a>
 				</li>
-				<li>
-					<a href="#" title="Go">Go</a>
-				</li>
+				{{end}}
 			</ul>
 		</aside>
+		{{end}}
 
 	</div> <!-- /secondary -->
 </div> <!-- /columns -->

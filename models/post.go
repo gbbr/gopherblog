@@ -74,6 +74,30 @@ func PostsByUser(u *User) (posts []Post, err error) {
 	return
 }
 
+// Returns a list of unique tags
+func TagsAll() ([]string, error) {
+	rows, err := db.Query(SQL_ALL_TAGS)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		tags []string
+		tag  string
+	)
+
+	for rows.Next() {
+		err := rows.Scan(&tag)
+		if err != nil {
+			return nil, err
+		}
+
+		tags = append(tags, tag)
+	}
+
+	return tags, nil
+}
+
 // Fetches one post from the database based on ID
 // or slug
 func (p *Post) Fetch() error {

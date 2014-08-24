@@ -33,6 +33,8 @@ const (
 		WHERE draft=false
 		ORDER BY date DESC LIMIT ?`
 
+	SQL_ALL_TAGS = `SELECT DISTINCT tag FROM post_tags`
+
 	SQL_INSERT_POST = `
 		INSERT INTO posts (slug, title, body, idUser, draft)
 		VALUES (?, ?, ?, ?, ?)`
