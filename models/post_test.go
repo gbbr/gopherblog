@@ -177,8 +177,8 @@ func TestPostDelete(t *testing.T) {
 
 	clone := new(Post)
 	*clone = *original
+	
 	err := clone.Delete()
-
 	if err != nil {
 		t.Fatal("Error deleting post")
 	}
