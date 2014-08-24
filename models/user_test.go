@@ -3,11 +3,11 @@ package models
 import (
 	"testing"
 
-	"github.com/gbbr/gopherblog/dbtest"
+	"github.com/gbbr/gopherblog/models/testdb"
 )
 
 func TestUserFetch(t *testing.T) {
-	dbtest.SetUp()
+	testdb.SetUp()
 
 	testCases := []struct {
 		Id              int
@@ -17,7 +17,7 @@ func TestUserFetch(t *testing.T) {
 		{1, "Jeremy", "jeremy@email.com"},
 	}
 
-	ConnectDb(dbtest.TestConfig.DbString)
+	ConnectDb(testdb.Config.DbString)
 	defer CloseDb()
 
 	for _, test := range testCases {
@@ -35,7 +35,7 @@ func TestUserFetch(t *testing.T) {
 }
 
 func TestUserLoginCorrect(t *testing.T) {
-	dbtest.SetUp()
+	testdb.SetUp()
 
 	testCases := []struct {
 		login, pass string
@@ -44,7 +44,7 @@ func TestUserLoginCorrect(t *testing.T) {
 		{"mathias@company.it", "7c6a180b36896a0a8c02787eeafb0e4c"},
 	}
 
-	ConnectDb(dbtest.TestConfig.DbString)
+	ConnectDb(testdb.Config.DbString)
 	defer CloseDb()
 
 	for _, test := range testCases {

@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gbbr/gopherblog/dbtest"
 	"github.com/gbbr/gopherblog/models"
+	"github.com/gbbr/gopherblog/models/testdb"
 )
 
 const (
@@ -46,10 +46,10 @@ func getTestRequest(valid bool) (*http.Request, error) {
 }
 
 func TestIsValidRequest(t *testing.T) {
-	dbtest.TestConfig.SchemaFile = "dbtest/schema.sql"
-	dbtest.SetUp()
+	testdb.Config.SchemaFile = "models/testdb/schema.sql"
+	testdb.SetUp()
 
-	models.ConnectDb(dbtest.TestConfig.DbString)
+	models.ConnectDb(testdb.Config.DbString)
 	defer models.CloseDb()
 
 	want := models.User{
@@ -87,10 +87,10 @@ func TestIsValidRequest(t *testing.T) {
 }
 
 func TestAuthenticateRoute(t *testing.T) {
-	dbtest.TestConfig.SchemaFile = "dbtest/schema.sql"
-	dbtest.SetUp()
+	testdb.Config.SchemaFile = "models/testdb/schema.sql"
+	testdb.SetUp()
 
-	models.ConnectDb(dbtest.TestConfig.DbString)
+	models.ConnectDb(testdb.Config.DbString)
 	defer models.CloseDb()
 
 	handlerCalled := false
