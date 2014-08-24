@@ -190,12 +190,22 @@ func (p *Post) Save() error {
 	return nil
 }
 
-// Returns the formatted date as a string
+// Deletes the post
+func (p *Post) Delete() error {
+	_, err := db.Exec(SQL_DELETE_POST, p.Id)
+	if err == nil {
+		*p = Post{}
+	}
+
+	return err
+}
+
+// Template helper functions
+
 func (p *Post) FormattedDate() string {
 	year, month, day := p.Date.Date()
 	return fmt.Sprintf("%d %s %d", day, month, year)
 }
 
-// Template helpers
 func (p *Post) BodyHTML() template.HTML { return template.HTML(p.Body) }
 func (p *Post) TagsString() string      { return strings.Join(p.Tags, ", ") }

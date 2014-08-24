@@ -1,6 +1,10 @@
 package models
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+	"time"
+)
 
 func TestPostsWithLimit(t *testing.T) {
 	once.Do(setUp)
@@ -73,4 +77,114 @@ func TestPostFetch(t *testing.T) {
 		t.Log("Didn't fetch the right author")
 		t.Fail()
 	}
+}
+
+func TestPostSaveNew(t *testing.T) {
+	once.Do(setUp)
+
+	ConnectDb(testConfig.dbString)
+	defer CloseDb()
+
+	timeCompromise := time.Now()
+	want := &Post{
+		Title: "My shiny new post",
+		Slug:  "shiny-post",
+		Body:  "Look at the bling in this post",
+		Author: User{
+			Id:    1,
+			Name:  "Jeremy",
+			Email: "jeremy@email.com",
+		},
+		Date:  timeCompromise,
+		Draft: false,
+		Tags:  []string{"A", "B", "C"},
+	}
+
+	err := want.Save()
+	if err != nil {
+		t.Log("Error saving post")
+		t.Fail()
+	}
+
+	post := &Post{Id: want.Id}
+	post.Fetch()
+
+	post.Date = timeCompromise // Ignore time on deep equals
+	if !reflect.DeepEqual(post, want) {
+		t.Log("Did not save post correctly")
+		t.Fail()
+	}
+
+	post.Delete()
+}
+
+func TestPostUpdate(t *testing.T) {
+	once.Do(setUp)
+
+	ConnectDb(testConfig.dbString)
+	defer CloseDb()
+
+	original := &Post{Id: 11}
+	original.Fetch()
+
+	timeCompromise := time.Now()
+	want := &Post{
+		Id:    11,
+		Title: "My shiny new post",
+		Slug:  "shiny-post",
+		Body:  "Look at the bling in this post",
+		Author: User{
+			Id:    1,
+			Name:  "Jeremy",
+			Email: "jeremy@email.com",
+		},
+		Date:  timeCompromise,
+		Draft: false,
+		Tags:  []string{"A", "B", "C"},
+	}
+
+	err := want.Save()
+	if err != nil {
+		t.Log("Error saving post")
+		t.Fail()
+	}
+
+	post := &Post{Id: want.Id}
+	post.Fetch()
+
+	post.Date = timeCompromise // Ignore time on deep equals
+	if !reflect.DeepEqual(post, want) {
+		t.Log("Did not save post correctly")
+		t.Fail()
+	}
+
+	err = original.Save()
+	if err != nil {
+		t.Log("Error restoring original")
+	}
+}
+
+func TestPostDelete(t *testing.T) {
+	once.Do(setUp)
+
+	ConnectDb(testConfig.dbString)
+	defer CloseDb()
+
+	original := &Post{Id: 11}
+	original.Fetch()
+
+	clone := new(Post)
+	*clone = *original
+	err := clone.Delete()
+
+	if err != nil {
+		t.Fatal("Error deleting post")
+	}
+
+	if clone.Id != 0 {
+		t.Log("Did not delete post")
+		t.Fail()
+	}
+
+	original.Save()
 }

@@ -40,6 +40,7 @@ const (
 		INSERT IGNORE INTO post_tags (idPost, tag)
 		VALUES (?, ?)`
 	SQL_REMOVE_TAGS = `DELETE from post_tags WHERE idPost=?`
+	SQL_DELETE_POST = `DELETE from posts WHERE idPost=?`
 	SQL_UPDATE_POST = `
 		UPDATE posts SET slug=?, title=?, body=?, idUser=?, draft=?
 		WHERE idPost=?`
