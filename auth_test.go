@@ -20,13 +20,6 @@ const (
 	LOGIN_ID          = 1
 )
 
-// Generates SHA256 hash from constants defined above
-func getHashFromConstants() string {
-	ip := strings.Split(REMOTE_ADDR_TEST, ":")[0]
-	origin := []byte(LOGIN_EMAIL + ip + REMOTE_USER_AGENT)
-	return fmt.Sprintf("%d:%x", LOGIN_ID, sha256.Sum256(origin))
-}
-
 // Returns a test request. If valid is true, the request
 // will be a valid authentication.
 func getTestRequest(valid bool) (*http.Request, error) {
@@ -37,7 +30,9 @@ func getTestRequest(valid bool) (*http.Request, error) {
 
 	hash := "1:GOOD_ID_BUT_BAD_HASH"
 	if valid {
-		hash = getHashFromConstants()
+		ip := strings.Split(REMOTE_ADDR_TEST, ":")[0]
+		origin := []byte(LOGIN_EMAIL + ip + REMOTE_USER_AGENT)
+		hash = fmt.Sprintf("%d:%x", LOGIN_ID, sha256.Sum256(origin))
 	}
 
 	req.Header.Add("User-Agent", REMOTE_USER_AGENT)
