@@ -10,12 +10,12 @@ var db *sql.DB
 
 const (
 	SQL_POST_BY_ID = `
-		SELECT slug, title, body, date, idUser, users.name, users.email, draft
+		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft
 		FROM posts 
 		INNER JOIN users USING(idUser)
 		WHERE idPost=?`
 	SQL_POST_BY_SLUG = `
-		SELECT slug, title, body, date, idUser, users.name, users.email, draft
+		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft
 		FROM posts 
 		INNER JOIN users USING(idUser)
 		WHERE slug=?`
