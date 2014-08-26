@@ -1,30 +1,29 @@
 package controller
 
 import (
-	"github.com/gbbr/gopherblog/models"
 	"net/http"
+	"strings"
+
+	"github.com/gbbr/gopherblog/models"
 )
 
-// Fetches a new post and displays it
-func Post(w http.ResponseWriter, r *http.Request) {
-	post := &models.Post{
-		Slug: r.URL.Path[len("/post/"):],
+// Displays all posts or filters them by tag according to the URL path.
+// If the path contains "/tag/:tag" it will filter by tag, otherwise it
+// will show the homepage. If there are trailing characters after the URL
+// it will show 404 page.
+func Posts(w http.ResponseWriter, r *http.Request) {
+	var (
+		posts []models.Post
+		err   error
+	)
+
+	if strings.HasPrefix(r.URL.Path, "/tag/") {
+		posts, err = models.PostsByTag(r.URL.Path[len("/tag/"):])
+	} else {
+		posts, err = models.Posts(200)
 	}
 
-	err := post.Fetch()
 	if err != nil {
-		tpl.ExecuteTemplate(w, "404", nil)
-		return
-	}
-
-	tpl.ExecuteTemplate(w, "post", post)
-}
-
-// Displays home page
-func Home(w http.ResponseWriter, r *http.Request) {
-	posts, err := models.Posts(200)
-
-	if err != nil || len(r.URL.Path) > 1 {
 		tpl.ExecuteTemplate(w, "404", nil)
 		return
 	}
@@ -42,4 +41,20 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		posts,
 		tags,
 	})
+}
+
+// Fetches a new post and displays it. Goes to 404 Not Found
+// page if post is invalid or URL is odd
+func Post(w http.ResponseWriter, r *http.Request) {
+	post := &models.Post{
+		Slug: r.URL.Path[len("/post/"):],
+	}
+
+	err := post.Fetch()
+	if err != nil {
+		tpl.ExecuteTemplate(w, "404", nil)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "post", post)
 }

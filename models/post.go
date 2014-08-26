@@ -49,10 +49,10 @@ func Posts(limit int) (posts []Post, err error) {
 // Fetches all posts by user's ID
 func PostsByUser(u *User) (posts []Post, err error) {
 	rows, err := db.Query(SQL_POSTS_BY_USER, u.Id)
-	defer rows.Close()
 	if err != nil {
 		return
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		p, date := new(Post), new(mysql.NullTime)
@@ -71,6 +71,40 @@ func PostsByUser(u *User) (posts []Post, err error) {
 	}
 
 	err = nil
+	return
+}
+
+// Retrieves all posts that match a given tag
+// and are not drafts, ordered by date
+func PostsByTag(tag string) (posts []Post, err error) {
+	if len(tag) == 0 {
+		return nil, errors.New("Invalid tag")
+	}
+
+	rows, err := db.Query(SQL_POSTS_BY_TAG, tag)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	p := new(Post)
+	d := new(mysql.NullTime)
+
+	for rows.Next() {
+		err := rows.Scan(&p.Slug, &p.Title, d, &p.Author.Id, &p.Author.Name)
+		if err != nil {
+			return nil, err
+		}
+
+		if d.Valid {
+			p.Date = d.Time
+		} else {
+			return nil, err
+		}
+
+		posts = append(posts, *p)
+	}
+
 	return
 }
 
@@ -216,10 +250,34 @@ func (p *Post) Save() error {
 
 // Deletes the post
 func (p *Post) Delete() error {
-	_, err := db.Exec(SQL_DELETE_POST, p.Id)
-	if err == nil {
-		*p = Post{}
+	tx, err := db.Begin()
+	if err != nil {
+		tx.Rollback()
+		return err
 	}
+
+	// Delete post
+	_, err = tx.Exec(SQL_DELETE_POST, p.Id)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// Remove tags
+	_, err = tx.Exec(SQL_REMOVE_TAGS, p.Id)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	// Attempt to commit changes
+	err = tx.Commit()
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	*p = Post{}
 
 	return err
 }

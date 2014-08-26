@@ -17,6 +17,21 @@ CREATE TABLE `post_tags` (
 
 LOCK TABLES `post_tags` WRITE;
 
+INSERT INTO `post_tags` VALUES
+
+(11, "Tag-A"),
+(12, "Tag-A"),
+
+(13, "Tag-A"),
+(13, "Tag-B"),
+(13, "Tag-C"),
+
+(14, "Tag-A"),
+(15, "Tag-D"),
+
+(16, "Tag-E");
+
+
 UNLOCK TABLES;
 
 --

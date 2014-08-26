@@ -29,6 +29,31 @@ func TestPostsWithLimit(t *testing.T) {
 	}
 }
 
+func TestPostsByTag(t *testing.T) {
+	testdb.SetUp()
+
+	ConnectDb(testdb.Config.DbString)
+	defer CloseDb()
+
+	want := []Post{
+		{Slug: "slug-three", Title: "Title Three", Author: User{Id: 1, Name: "Jeremy"}},
+		{Slug: "slug-two", Title: "Title Two", Author: User{Id: 1, Name: "Jeremy"}},
+		{Slug: "slug-one", Title: "Title One", Author: User{Id: 1, Name: "Jeremy"}},
+	}
+
+	posts, err := PostsByTag("Tag-A")
+	if err != nil {
+		t.Fatal("Error fetching posts by tag")
+	}
+
+	for i, p := range posts {
+		if want[i].Slug != p.Slug || want[i].Title != p.Title || !reflect.DeepEqual(want[i].Author, p.Author) {
+			t.Log("Did not fetch correctly by tag")
+			t.Fail()
+		}
+	}
+}
+
 func TestPostsByUser(t *testing.T) {
 	testdb.SetUp()
 
@@ -172,21 +197,16 @@ func TestPostDelete(t *testing.T) {
 	ConnectDb(testdb.Config.DbString)
 	defer CloseDb()
 
-	original := &Post{Id: 11}
-	original.Fetch()
+	post := &Post{Id: 11}
+	post.Fetch()
 
-	clone := new(Post)
-	*clone = *original
-	
-	err := clone.Delete()
+	err := post.Delete()
 	if err != nil {
-		t.Fatal("Error deleting post")
+		t.Fatalf("Error deleting post: ", err)
 	}
 
-	if clone.Id != 0 {
+	if post.Id != 0 {
 		t.Log("Did not delete post")
 		t.Fail()
 	}
-
-	original.Save()
 }
