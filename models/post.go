@@ -153,17 +153,6 @@ func (p *Post) Fetch() error {
 		return err
 	}
 
-	err = p.update(rows)
-	if err != nil {
-		return errors.New("Error scanning row")
-	}
-
-	rows.Close()
-	return nil
-}
-
-// Scans a fetched row and updates the structure
-func (p *Post) update(rows *sql.Rows) error {
 	tag := new(sql.NullString)
 	date := new(mysql.NullTime)
 
@@ -184,6 +173,7 @@ func (p *Post) update(rows *sql.Rows) error {
 		}
 	}
 
+	rows.Close()
 	return nil
 }
 
