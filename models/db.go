@@ -48,7 +48,7 @@ const (
 		WHERE draft=false
 		ORDER BY date DESC LIMIT ?`
 
-	SQL_ALL_TAGS = `SELECT DISTINCT tag FROM post_tags`
+	SQL_ALL_TAGS = `SELECT DISTINCT tag FROM post_tags INNER JOIN posts USING(idPost) WHERE posts.draft=false`
 
 	SQL_INSERT_POST = `
 		INSERT INTO posts (slug, title, abstract, body, idUser, draft)
