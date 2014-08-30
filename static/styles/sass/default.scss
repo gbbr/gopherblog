@@ -45,6 +45,11 @@ textarea {
 		border-color: #aaa;
 		outline: 0;
 	}
+
+	&.short {
+		height: 150px;
+		margin-bottom: 15px;
+	}
 }
 
 textarea {

@@ -10,7 +10,8 @@
 	<input type="text" name="tags" value="{{.TagsString}}" /><br>
 	<input type="checkbox" name="draft" {{if not .Draft}}checked="true"{{end}} /> Published<br>
 	Abstract:<br>
-	<textarea name="abstract">{{.Abstract}}</textarea><br>
+	<textarea name="abstract" class="short">{{.Abstract}}</textarea><br>
+	Body:<br>
 	<textarea name="body">{{.Body}}</textarea><br>
 	<input type="submit" value="Save" />
 </form>

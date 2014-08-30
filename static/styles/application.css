@@ -45,6 +45,12 @@ textarea {
   textarea:focus {
     border-color: #aaa;
     outline: 0; }
+  input[type="search"].short,
+  input[type="text"].short,
+  input[type="password"].short,
+  textarea.short {
+    height: 150px;
+    margin-bottom: 15px; }
 
 textarea {
   height: 500px;
