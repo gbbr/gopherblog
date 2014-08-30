@@ -80,13 +80,14 @@ func savePost(id int, keys func(string) string, u *models.User) error {
 	}
 
 	post := &models.Post{
-		Id:     id,
-		Slug:   keys("slug"),
-		Title:  keys("title"),
-		Body:   strings.Trim(keys("body"), " \t\r\n"),
-		Author: *u,
-		Draft:  keys("draft") != "on",
-		Tags:   tags,
+		Id:       id,
+		Slug:     keys("slug"),
+		Title:    keys("title"),
+		Abstract: keys("abstract"),
+		Body:     strings.Trim(keys("body"), " \t\r\n"),
+		Author:   *u,
+		Draft:    keys("draft") != "on",
+		Tags:     tags,
 	}
 
 	return post.Save()
