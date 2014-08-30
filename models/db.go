@@ -14,14 +14,14 @@ var db *sql.DB
 
 const (
 	SQL_POST_BY_ID = `
-		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft, tag
+		SELECT idPost, slug, title, abstract, body, date, idUser, users.name, users.email, draft, tag
 		FROM posts 
 		LEFT JOIN post_tags USING(idPost) 
 		INNER JOIN users USING(idUser)
 		WHERE idPost=?`
 
 	SQL_POST_BY_SLUG = `
-		SELECT idPost, slug, title, body, date, idUser, users.name, users.email, draft, tag 
+		SELECT idPost, slug, title, abstract, body, date, idUser, users.name, users.email, draft, tag 
 		FROM posts 
 		LEFT JOIN post_tags USING(idPost)
 		INNER JOIN users USING(idUser)
@@ -34,7 +34,7 @@ const (
 		ORDER BY draft DESC, date DESC`
 
 	SQL_POSTS_BY_TAG = `
-		SELECT slug, title, date, idUser, users.name
+		SELECT slug, title, abstract, date, idUser, users.name
 		FROM posts
 		INNER JOIN users USING(idUser)
 		LEFT JOIN post_tags USING(idPost)
@@ -42,7 +42,7 @@ const (
 		ORDER BY date DESC`
 
 	SQL_ALL_POSTS = `
-		SELECT slug, title, date, idUser, users.name
+		SELECT slug, title, abstract, date, idUser, users.name
 		FROM posts
 		INNER JOIN users USING(idUser)
 		WHERE draft=false
@@ -51,8 +51,8 @@ const (
 	SQL_ALL_TAGS = `SELECT DISTINCT tag FROM post_tags`
 
 	SQL_INSERT_POST = `
-		INSERT INTO posts (slug, title, body, idUser, draft)
-		VALUES (?, ?, ?, ?, ?)`
+		INSERT INTO posts (slug, title, abstract, body, idUser, draft)
+		VALUES (?, ?, ?, ?, ?, ?)`
 
 	SQL_INSERT_TAGS = `
 		INSERT IGNORE INTO post_tags (idPost, tag)
@@ -63,7 +63,7 @@ const (
 	SQL_DELETE_POST = `DELETE from posts WHERE idPost=?`
 
 	SQL_UPDATE_POST = `
-		UPDATE posts SET slug=?, title=?, body=?, idUser=?, draft=?
+		UPDATE posts SET slug=?, title=?, abstract=?, body=?, idUser=?, draft=?
 		WHERE idPost=?`
 
 	SQL_USER_BY_ID = `

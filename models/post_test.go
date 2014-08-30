@@ -114,9 +114,10 @@ func TestPostSaveNew(t *testing.T) {
 
 	timeCompromise := time.Now()
 	want := &Post{
-		Title: "My shiny new post",
-		Slug:  "shiny-post",
-		Body:  "Look at the bling in this post",
+		Title:    "My shiny new post",
+		Abstract: "About this post...",
+		Slug:     "shiny-post",
+		Body:     "Look at the bling in this post",
 		Author: User{
 			Id:    1,
 			Name:  "Jeremy",
@@ -156,10 +157,11 @@ func TestPostUpdate(t *testing.T) {
 
 	timeCompromise := time.Now()
 	want := &Post{
-		Id:    11,
-		Title: "My shiny new post",
-		Slug:  "shiny-post",
-		Body:  "Look at the bling in this post",
+		Id:       11,
+		Title:    "My shiny new post",
+		Abstract: "About this posts...",
+		Slug:     "shiny-post",
+		Body:     "Look at the bling in this post",
 		Author: User{
 			Id:    1,
 			Name:  "Jeremy",

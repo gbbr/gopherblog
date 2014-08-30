@@ -44,6 +44,7 @@ CREATE TABLE `posts` (
   `idPost` int(11) NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
+  `abstract` blob NOT NULL,
   `body` blob NOT NULL,
   `idUser` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -60,16 +61,16 @@ CREATE TABLE `posts` (
 LOCK TABLES `posts` WRITE;
 
 INSERT INTO `posts` VALUES 
-(11,'slug-one','Title One','Body of the post <strong>one</strong>',1,'2014-08-11 21:12:35',0),
-(12,'slug-two','Title Two','Body of the post <strong>two</strong>',1,'2014-08-11 21:13:00',0),
-(13,'slug-three','Title Three','Body of the post <strong>three</strong>',1,'2014-08-11 21:13:16',0),
-(14,'draft-one','Draft One','Body of the post <strong>draft-one</strong>',1,'2014-08-11 21:13:54',1),
-(15,'draft-two','Draft Two','Body of the post <strong>draft-two</strong>',1,'2014-08-11 21:14:08',1),
-(17,'mypost-one','My Post One','My post <em>one\'s</em> body',2,'2014-08-11 21:15:51',0),
-(18,'mypost-two','My Post Two','My post <em>two\'s</em> body',2,'2014-08-11 21:15:51',0),
-(19,'mypost-three','My Post Three','My post <em>three\'s</em> body',2,'2014-08-11 21:15:51',0),
-(20,'mypost-four','My Post Four','My post <em>four\'s</em> body',2,'2014-08-11 21:15:51',0),
-(21,'mypost-draft','My Draft Post','This is still a draft',2,'2014-08-11 21:15:52',1);
+(11,'slug-one','Title One','This post is about','Body of the post <strong>one</strong>',1,'2014-08-11 21:12:35',0),
+(12,'slug-two','Title Two','This post is about','Body of the post <strong>two</strong>',1,'2014-08-11 21:13:00',0),
+(13,'slug-three','Title Three','This post is about','Body of the post <strong>three</strong>',1,'2014-08-11 21:13:16',0),
+(14,'draft-one','Draft One','This post is about','Body of the post <strong>draft-one</strong>',1,'2014-08-11 21:13:54',1),
+(15,'draft-two','Draft Two','This post is about','Body of the post <strong>draft-two</strong>',1,'2014-08-11 21:14:08',1),
+(17,'mypost-one','My Post One','This post is about','My post <em>one\'s</em> body',2,'2014-08-11 21:15:51',0),
+(18,'mypost-two','My Post Two','This post is about','My post <em>two\'s</em> body',2,'2014-08-11 21:15:51',0),
+(19,'mypost-three','My Post Three','This post is about','My post <em>three\'s</em> body',2,'2014-08-11 21:15:51',0),
+(20,'mypost-four','My Post Four','This post is about','My post <em>four\'s</em> body',2,'2014-08-11 21:15:51',0),
+(21,'mypost-draft','My Draft Post','This post is about','This is still a draft',2,'2014-08-11 21:15:52',1);
 
 UNLOCK TABLES;
 

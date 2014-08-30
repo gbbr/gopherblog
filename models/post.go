@@ -11,12 +11,14 @@ import (
 )
 
 type Post struct {
-	Id                int
-	Slug, Title, Body string
-	Author            User
-	Date              time.Time
-	Draft             bool
-	Tags              []string
+	Id          int
+	Slug        string
+	Title, Body string
+	Abstract    string
+	Author      User
+	Date        time.Time
+	Draft       bool
+	Tags        []string
 }
 
 // Fetches number of posts from the database ordered by date
@@ -29,7 +31,7 @@ func Posts(limit int) (posts []Post, err error) {
 
 	for rows.Next() {
 		post, author, date := new(Post), new(User), new(mysql.NullTime)
-		err = rows.Scan(&post.Slug, &post.Title, date, &author.Id, &author.Name)
+		err = rows.Scan(&post.Slug, &post.Title, &post.Abstract, date, &author.Id, &author.Name)
 		if err != nil {
 			return
 		}
@@ -91,7 +93,7 @@ func PostsByTag(tag string) (posts []Post, err error) {
 	d := new(mysql.NullTime)
 
 	for rows.Next() {
-		err := rows.Scan(&p.Slug, &p.Title, d, &p.Author.Id, &p.Author.Name)
+		err := rows.Scan(&p.Slug, &p.Title, &p.Abstract, d, &p.Author.Id, &p.Author.Name)
 		if err != nil {
 			return nil, err
 		}
@@ -157,7 +159,10 @@ func (p *Post) Fetch() error {
 	date := new(mysql.NullTime)
 
 	for rows.Next() {
-		err := rows.Scan(&p.Id, &p.Slug, &p.Title, &p.Body, date, &p.Author.Id, &p.Author.Name, &p.Author.Email, &p.Draft, tag)
+		err := rows.Scan(&p.Id, &p.Slug, &p.Title, &p.Abstract,
+			&p.Body, date, &p.Author.Id, &p.Author.Name,
+			&p.Author.Email, &p.Draft, tag)
+
 		if err != nil {
 			return err
 		}
@@ -192,7 +197,7 @@ func (p *Post) Save() error {
 	}
 
 	if p.Id == 0 {
-		result, err = tx.Exec(SQL_INSERT_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft)
+		result, err = tx.Exec(SQL_INSERT_POST, p.Slug, p.Title, p.Abstract, p.Body, p.Author.Id, p.Draft)
 		if err != nil {
 			tx.Rollback()
 			return err
@@ -202,7 +207,7 @@ func (p *Post) Save() error {
 		id64, err = result.LastInsertId()
 		p.Id = int(id64)
 	} else {
-		result, err = tx.Exec(SQL_UPDATE_POST, p.Slug, p.Title, p.Body, p.Author.Id, p.Draft, p.Id)
+		result, err = tx.Exec(SQL_UPDATE_POST, p.Slug, p.Title, p.Abstract, p.Body, p.Author.Id, p.Draft, p.Id)
 	}
 
 	if err != nil {

@@ -44,6 +44,7 @@ CREATE TABLE `posts` (
   `idPost` int(11) NOT NULL AUTO_INCREMENT,
   `slug` varchar(255) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
+  `abstract` blob NOT NULL,
   `body` blob NOT NULL,
   `idUser` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
