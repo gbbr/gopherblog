@@ -4,25 +4,29 @@
 
 .siteContent {
 	.post {
-		padding: 2em 0 4em 0;
+		padding: 2em 0 2em 0;
 		.entryHeader {
 			text-align: center;
 			.entryTitle {
 				font-size: 3em;
 				font-weight: 400;
-				margin-top: 0;
+				text-align: left;
+				margin: 0;
 			}
 		}
 		.entryMeta {
 			color: #aaa;
 			font-size: 1.3em;
 			letter-spacing: 1px;
-			text-align: center;
-			padding: 0.6em 0 1.2em 0;
+			text-align: left;
+			padding: 0.5em 0 0.5em 0;
 		}
 		.entryContent {
 			font-size: 1.6em;
 			padding: 0.25em 0 1.25em 0;
+			p {
+				margin: 1em 0 0 0;
+			}
 			.moreLink {
 				border-bottom: 1px dotted #ccc;
 				color: #444;
@@ -30,10 +34,9 @@
 				font-weight: 400;
 				font-size: 0.925em;
 				max-width: 18.75em;
-				margin: 2.5em auto 0 auto;
+				margin: 1.5em 0 0 0;
 				letter-spacing: 2px;
 				padding: 0.5em 0 0.4em 0;
-				text-align: center;
 			}
 		}
 	}
