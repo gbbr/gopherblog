@@ -47,7 +47,7 @@ CREATE TABLE `posts` (
   `abstract` blob NOT NULL,
   `body` blob NOT NULL,
   `idUser` int(11) NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `draft` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idPost`),
   KEY `slug` (`slug`),
