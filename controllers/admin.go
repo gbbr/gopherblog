@@ -47,27 +47,25 @@ func EditPost(w http.ResponseWriter, r *http.Request, u *models.User) {
 		return
 	}
 
-	switch r.Method {
-	case "POST":
+	// If the request method is POST, save any changes to
+	// the post
+	if r.Method == "POST" {
 		err = savePost(pId, r.FormValue, u)
 		if err != nil {
 			tpl.ExecuteTemplate(w, "404", nil)
 			return
 		}
-
-		http.Redirect(w, r, "/manage", http.StatusFound)
-
-	case "GET":
-		post := &models.Post{Id: pId}
-
-		err = post.Fetch()
-		if err != nil || post.Author.Id != u.Id {
-			tpl.ExecuteTemplate(w, "404", nil)
-			return
-		}
-
-		tpl.ExecuteTemplate(w, "editPost", post)
 	}
+
+	post := &models.Post{Id: pId}
+
+	err = post.Fetch()
+	if err != nil || post.Author.Id != u.Id {
+		tpl.ExecuteTemplate(w, "404", nil)
+		return
+	}
+
+	tpl.ExecuteTemplate(w, "editPost", post)
 }
 
 // Saves a post extracted from a form value function
